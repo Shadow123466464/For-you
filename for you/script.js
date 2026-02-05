@@ -1,9 +1,14 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const envelopesContainer = document.getElementById('envelopes');
-    const modal = document.getElementById('modal');
-    const paper = document.getElementById('paper');
+    const envelopesContainer = document.querySelector('.envelopes');
+    const modal = document.getElementById('letterModal');
+    const letterContent = document.getElementById('letterContent');
     const galaxyAnimation = document.querySelector('.galaxy-animation');
     const body = document.body;
+    let currentOpenEnvelope = null;
+
+    function getDaysInMonth(month, year) {
+        return new Date(year, month + 1, 0).getDate();
+    }
 
     const backgrounds = [
         { class: 'galaxy-bg', url: 'linear-gradient(to bottom, #0f0c29, #302b63, #24243e)' },
@@ -40,159 +45,183 @@ document.addEventListener('DOMContentLoaded', function() {
     ];
 
     const allLoveWords = [
-        { word: "Resilience", message: "Resilience is the quiet strength that helps you rise every time you fall. It’s the voice inside you that whispers, ‘Try one more time.’", bg: backgrounds },
-        { word: "Empathy", message: "Empathy is the bridge that connects hearts. It’s the ability to feel with others, to understand their pain as your own, and to offer kindness without judgment.", bg: backgrounds },
-        { word: "Perseverance", message: "'If you want to keep a secret, you must also hide it from yourself.' — The Cruel Prince, Holly Black", bg: backgrounds },
-        { word: "Compassion", message: "'We are all villains in the right story.' — The Darkest Part of the Forest, Holly Black", bg: backgrounds },
-        { word: "Gratitude", message: "Gratitude turns what we have into enough. It’s the art of counting blessings instead of burdens, and finding joy in the little things.", bg: backgrounds },
-        { word: "Wisdom", message: "'The world is full of monsters with friendly faces and angels full of scars.' — The Book Thief, Markus Zusak", bg: backgrounds },
-        { word: "Hope", message: "'Hope can be a powerful force. Maybe there’s no actual magic in it, but when you know what you hope for most and hold it like a light within you, you can make things happen, almost like magic.' — Daughter of Smoke & Bone, Laini Taylor", bg: backgrounds },
-        { word: "Courage", message: "'It takes ten times as much courage to appear weak as it does to be strong.' — Throne of Glass, Sarah J. Maas", bg: backgrounds },
-        { word: "Forgiveness", message: "'Forgiveness is me giving up my right to hurt you for hurting me.' — The Sun Is Also a Star, Nicola Yoon", bg: backgrounds },
-        { word: "Unity", message: "'No one is useless in this world who lightens the burdens of another.' — Charles Dickens", bg: backgrounds },
-        { word: "Serenity", message: "'Peace is not absence of conflict, it is the ability to handle conflict by peaceful means.' — Ronald Reagan", bg: backgrounds },
-        { word: "Integrity", message: "'Integrity is doing the right thing, even when no one is watching.' — C.S. Lewis", bg: backgrounds },
-        { word: "Humility", message: "'Humility is not thinking less of yourself, it’s thinking of yourself less.' — C.S. Lewis", bg: backgrounds },
-        { word: "Generosity", message: "'No one has ever become poor by giving.' — Anne Frank", bg: backgrounds },
-        { word: "Trust", message: "'Trust is the glue of life. It’s the most essential ingredient in effective communication.' — Stephen Covey", bg: backgrounds },
-        { word: "Patience", message: "'Patience is not simply the ability to wait - it's how we behave while we're waiting.' — Joyce Meyer", bg: backgrounds },
-        { word: "Faith", message: "'Faith is taking the first step even when you don’t see the whole staircase.' — Martin Luther King Jr.", bg: backgrounds },
-        { word: "Joy", message: "'Joy does not simply happen to us. We have to choose joy and keep choosing it every day.' — Henri Nouwen", bg: backgrounds },
-        { word: "Love", message: "'Love recognizes no barriers. It jumps hurdles, leaps fences, penetrates walls to arrive at its destination full of hope.' — Maya Angelou", bg: backgrounds },
-        { word: "Strength", message: "'Strength does not come from winning. Your struggles develop your strengths.' — Arnold Schwarzenegger", bg: backgrounds },
-        { word: "Kindness", message: "'No act of kindness, no matter how small, is ever wasted.' — Aesop", bg: backgrounds },
-        { word: "Inspiration", message: "'Inspiration comes from within yourself. One has to be positive. When you're positive, good things happen.' — Deepak Chopra", bg: backgrounds },
-        { word: "Harmony", message: "'Harmony makes small things grow, lack of it makes great things decay.' — Sallust", bg: backgrounds },
-        { word: "Passion", message: "'Passion is energy. Feel the power that comes from focusing on what excites you.' — Oprah Winfrey", bg: backgrounds },
-        { word: "Dreams", message: "'Dreams are the touchstones of our character.' — Henry David Thoreau", bg: backgrounds },
-        { word: "Creativity", message: "'Creativity is intelligence having fun.' — Albert Einstein", bg: backgrounds },
-        { word: "Freedom", message: "'Freedom is the oxygen of the soul.' — Moshe Dayan", bg: backgrounds },
-        { word: "Peace", message: "'Peace begins with a smile.' — Mother Teresa", bg: backgrounds },
-        { word: "Adventure", message: "'Adventure is worthwhile in itself.' — Amelia Earhart", bg: backgrounds },
-        { word: "Beauty", message: "'Beauty begins the moment you decide to be yourself.' — Coco Chanel", bg: backgrounds },
-        { word: "Growth", message: "'Growth is the only evidence of life.' — John Henry Newman", bg: backgrounds },
-        { word: "Magic", message: "'Magic’s just science that we don’t understand yet.' — Arthur C. Clarke", bg: backgrounds },
-        { word: "Destiny", message: "'Destiny is not a matter of chance; it is a matter of choice.' — William Jennings Bryan", bg: backgrounds },
-        { word: "Courageous", message: "'Being deeply loved by someone gives you strength, while loving someone deeply gives you courage.' — Lao Tzu", bg: backgrounds },
-        { word: "Wanderlust", message: "'Because in the end, we only regret the chances we didn’t take.' — Lewis Carroll", bg: backgrounds },
-        { word: "Mystery", message: "'The oldest and strongest emotion of mankind is fear, and the oldest and strongest kind of fear is fear of the unknown.' — H.P. Lovecraft", bg: backgrounds },
-        { word: "Enchantment", message: "'There are some things you learn best in calm, and some in storm.' — Willa Cather", bg: backgrounds },
-        { word: "Whisper", message: "'Listen with curiosity. Speak with honesty. Act with integrity.' — Unknown", bg: backgrounds },
-        { word: "Echo", message: "'What we do echoes in eternity.' — Gladiator", bg: backgrounds },
-        { word: "Radiance", message: "'You are the light. You are one of a kind, irreplaceable, and more beautiful than you know.' — Steve Maraboli", bg: backgrounds },
-        { word: "Serendipity", message: "'Serendipity is the art of making an unsought finding.' — Pek Van Andel", bg: backgrounds },
-        { word: "Ethereal", message: "'The most beautiful things in the world cannot be seen or touched, they are felt with the heart.' — Antoine de Saint-Exupéry", bg: backgrounds },
-        { word: "Mystique", message: "'Mystery creates wonder and wonder is the basis of man's desire to understand.' — Neil Armstrong", bg: backgrounds },
-        { word: "Aurora", message: "'Every day may not be good, but there is something good in every day.' — Alice Morse Earle", bg: backgrounds },
-        { word: "Celestial", message: "'We are all in the gutter, but some of us are looking at the stars.' — Oscar Wilde", bg: backgrounds },
-        { word: "Luminous", message: "'There are two ways of spreading light: to be the candle or the mirror that reflects it.' — Edith Wharton", bg: backgrounds },
-        { word: "Eternal", message: "'What we do in life echoes in eternity.' — Marcus Aurelius", bg: backgrounds },
-        { word: "Tranquil", message: "'Peace is not absence of conflict, it is the ability to handle conflict by peaceful means.' — Ronald Reagan", bg: backgrounds },
-        { word: "Velvet", message: "'Softness is not weakness. It takes courage to stay delicate in a world this cruel.' — Beau Taplin", bg: backgrounds },
-        { word: "Bliss", message: "'Bliss is not the absence of any pain, but the presence of profound love.' — Debasish Mridha", bg: backgrounds },
-        { word: "Enigma", message: "'The universe is full of magical things patiently waiting for our wits to grow sharper.' — Eden Phillpotts", bg: backgrounds },
-        { word: "Rhapsody", message: "'Music is the divine way to tell beautiful, poetic things to the heart.' — Pablo Casals", bg: backgrounds },
-        { word: "Solitude", message: "'In solitude, the mind gains strength and learns to lean upon itself.' — Laurence Sterne", bg: backgrounds },
-        { word: "Eclipse", message: "'Even the darkest night will end and the sun will rise.' — Victor Hugo", bg: backgrounds },
-        { word: "Infinity", message: "'We are all infinite beings having a human experience.' — Deepak Chopra", bg: backgrounds },
-        { word: "Horizon", message: "'The horizon leans forward, offering you space to place new steps of change.' — Maya Angelou", bg: backgrounds },
-        { word: "Paradise", message: "'Paradise is not a place; it’s a state of consciousness.' — Sri Chinmoy", bg: backgrounds },
-        { word: "Ocean", message: "'You are not a drop in the ocean. You are the entire ocean in a drop.' — Rumi", bg: backgrounds },
-        { word: "Sunset", message: "'Every sunset is an opportunity to reset.' — Richie Norton", bg: backgrounds },
-        { word: "Dawn", message: "'With the new day comes new strength and new thoughts.' — Eleanor Roosevelt", bg: backgrounds },
-        { word: "Enchanted", message: "'The world is full of magic things, patiently waiting for our senses to grow sharper.' — W.B. Yeats", bg: backgrounds },
-        { word: "Whimsy", message: "'A little whimsy can go a long way.' — Unknown", bg: backgrounds },
-        { word: "Echoes", message: "'What we do echoes in eternity.' — Marcus Aurelius", bg: backgrounds },
-        { word: "Radiant", message: "'You are a child of the universe, no less than the trees and the stars.' — Max Ehrmann", bg: backgrounds },
-        { word: "Serene", message: "'Serenity comes when you trade expectations for acceptance.' — Unknown", bg: backgrounds },
-        { word: "Harmonious", message: "'Harmony is one phase of the law whose spiritual expression is love.' — James Allen", bg: backgrounds },
-        { word: "Tranquility", message: "'Tranquility is the mark of greatness.' — Seneca", bg: backgrounds },
-        { word: "Velvety", message: "'Softness is strength disguised.' — Unknown", bg: backgrounds },
-        { word: "Blissful", message: "'Bliss is the joy we feel when we align with our true nature.' — Unknown", bg: backgrounds },
-        { word: "Enigmatic", message: "'Mystery is at the heart of creativity. That’s why we’re drawn to it.' — Don Roff", bg: backgrounds },
-        { word: "Rhapsodic", message: "'Music is the language of the spirit. It opens the secret of life bringing peace, abolishing strife.' — Kahlil Gibran", bg: backgrounds },
-        { word: "Solitudinous", message: "'Solitude is where I place my chaos to rest and calm my angst.' — Nikki Rowe", bg: backgrounds },
-        { word: "Eclipsed", message: "'Even in the darkest times, there is light to be found.' — Unknown", bg: backgrounds },
-        { word: "Infinite", message: "'You are not a drop in the ocean. You are the entire ocean in a drop.' — Rumi", bg: backgrounds },
-        { word: "Horizonal", message: "'The horizon is always ahead of you, a reminder that there is always more to discover.' — Unknown", bg: backgrounds },
-        { word: "Paradisiacal", message: "'Paradise is wherever you feel at peace.' — Unknown", bg: backgrounds },
-        { word: "Oceanic", message: "'The ocean stirs the heart, inspires the imagination, and brings eternal joy to the soul.' — Wyland", bg: backgrounds },
-        { word: "Twilight", message: "'Twilight drops her curtain down and pins it with a star.' — Lucy Maud Montgomery", bg: backgrounds },
-        { word: "Dawnlight", message: "'Morning is an important time of day because how you spend your morning can often tell you what kind of day you are going to have.' — Lemony Snicket", bg: backgrounds },
-        { word: "Enchanted", message: "'The pure and simple truth is rarely pure and never simple.' — Oscar Wilde", bg: backgrounds },
-        { word: "Whimsical", message: "'Whimsy is serious.' — Unknown", bg: backgrounds },
-        { word: "Echoing", message: "'The echoes of our actions follow us forever.' — Unknown", bg: backgrounds },
-        { word: "Luminosity", message: "'Shine with all you have. When someone tries to blow you out, just take their oxygen and burn brighter.' — Kaci Diane", bg: backgrounds },
-        { word: "Ethereality", message: "'The most beautiful things in life are not just things. They’re feelings, moments, and memories.' — Unknown", bg: backgrounds },
-        { word: "Mystical", message: "'Magic exists. Who can doubt it, when there are rainbows and wildflowers, the music of the wind and the silence of the stars?' — Nora Roberts", bg: backgrounds },
-        { word: "Auroral", message: "'Every day may not be good, but there is something good in every day.' — Alice Morse Earle", bg: backgrounds },
-        { word: "Celestially", message: "'The stars are the apex of the night, silent poets, and keepers of ancient secrets.' — Unknown", bg: backgrounds },
-        { word: "Luminance", message: "'Light is meaningful only in relation to darkness, and truth presupposes error.' — Denis Diderot", bg: backgrounds },
-        { word: "Eternity", message: "'What we do in life echoes in eternity.' — Marcus Aurelius", bg: backgrounds },
-        { word: "Tranquility", message: "'Tranquility is the mark of greatness.' — Seneca", bg: backgrounds },
-        { word: "Velvetine", message: "'Softness is not weakness. It takes courage to stay delicate in a world this cruel.' — Beau Taplin", bg: backgrounds },
-        { word: "Blissfulness", message: "'Bliss is the joy we feel when we align with our true nature.' — Unknown", bg: backgrounds },
-        { word: "Enigmaticity", message: "'Mystery creates wonder and wonder is the basis of man's desire to understand.' — Neil Armstrong", bg: backgrounds },
-        { word: "Rhapsodical", message: "'Music is the divine way to tell beautiful, poetic things to the heart.' — Pablo Casals", bg: backgrounds },
-        { word: "Solitudinously", message: "'Solitude is where I place my chaos to rest and calm my angst.' — Nikki Rowe", bg: backgrounds },
-        { word: "Ecliptic", message: "'Even in the darkest times, there is light to be found.' — Unknown", bg: backgrounds },
-        { word: "Infinitesimal", message: "'You are not a drop in the ocean. You are the entire ocean in a drop.' — Rumi", bg: backgrounds },
-        { word: "Horizonally", message: "'The horizon is always ahead of you, a reminder that there is always more to discover.' — Unknown", bg: backgrounds },
-        { word: "Paradisiacally", message: "'Paradise is wherever you feel at peace.' — Unknown", bg: backgrounds },
-        { word: "Oceanically", message: "'The ocean stirs the heart, inspires the imagination, and brings eternal joy to the soul.' — Wyland", bg: backgrounds }
+        { word: "Devotion", message: "Devotion is the quiet promise of forever, whispered in every glance and touch." },
+        { word: "Passion", message: "'Passion is the fire that ignites the soul and burns away the shadows of doubt.' — The Cruel Prince, Holly Black" },
+        { word: "Tenderness", message: "Tenderness is the gentle touch that heals the heart and soothes the soul." },
+        { word: "Adoration", message: "Adoration is the silent song of the heart, sung only for the one who holds it." },
+        { word: "Romance", message: "'Romance is the art of turning ordinary moments into something magical.' — The Star-Touched Queen, Roshani Chokshi" },
+        { word: "Affection", message: "Affection is the warmth that wraps around you like a comforting embrace." },
+        { word: "Intimacy", message: "'Intimacy is not just about closeness, but about sharing the deepest parts of yourself.' — The Night Circus, Erin Morgenstern" },
+        { word: "Desire", message: "'Desire is the spark that lights the flame of love.' — A Court of Thorns and Roses, Sarah J. Maas" },
+        { word: "Comfort", message: "Comfort is the quiet assurance that you are loved, just as you are." },
+        { word: "Trust", message: "'Trust is the glue of life. It's the most essential ingredient in effective communication.' — Stephen Covey" },
+        { word: "Longing", message: "'Longing is the ache that reminds us of what we hold dear.' — The Song of Achilles, Madeline Miller" },
+        { word: "Joy", message: "Joy is the light that dances in your eyes when you see the one you love." },
+        { word: "Hope", message: "'Hope is the anchor that keeps love steady in the storm.' — The Fault in Our Stars, John Green" },
+        { word: "Serenity", message: "Serenity is the peace that comes from knowing you are loved unconditionally." },
+        { word: "Belonging", message: "'Belonging is the feeling of finally finding where you are meant to be.' — The Raven Boys, Maggie Stiefvater" },
+        { word: "Cherish", message: "To cherish is to hold someone so dear that their happiness becomes your own." },
+        { word: "Enchantment", message: "'Enchantment is the magic woven into every moment spent with the one you love.' — Uprooted, Naomi Novik" },
+        { word: "Whisper", message: "'A whisper of love can be louder than the noisiest crowd.' — The Cruel Prince, Holly Black" },
+        { word: "Promise", message: "A promise is the thread that ties hearts together through time and distance." },
+        { word: "Dream", message: "'Dreams are the seeds of love, waiting to bloom in the garden of reality.' — The Night Circus, Erin Morgenstern" },
+        { word: "Heartbeat", message: "A heartbeat in sync with another is the purest rhythm of love." },
+        { word: "Surrender", message: "'To surrender to love is to find strength in vulnerability.' — A Court of Mist and Fury, Sarah J. Maas" },
+        { word: "Eternity", message: "'Eternity is not about time, but about the moments that last forever in the heart.' — The Time Traveler's Wife, Audrey Niffenegger" },
+        { word: "Sacrifice", message: "Sacrifice is the silent language of love, spoken in actions rather than words." },
+        { word: "Fidelity", message: "'Fidelity is the quiet vow that echoes in every choice made for love.' — The Bronze Horseman, Paullina Simons" },
+        { word: "Passionate", message: "'Passionate love is the fire that warms even the coldest of hearts.' — Wuthering Heights, Emily Brontë" },
+        { word: "Tender", message: "Tenderness is the gentle hand that wipes away tears and soothes the soul." },
+        { word: "Devoted", message: "'To be devoted is to find your purpose in the happiness of another.' — Jane Eyre, Charlotte Brontë" },
+        { word: "Enamored", message: "To be enamored is to see the world through the colors of love." },
+        { word: "Yearning", message: "'Yearning is the heart's way of calling out to what it loves.' — The Song of Achilles, Madeline Miller" },
+        { word: "Rapture", message: "Rapture is the breathless moment when love feels like flying." },
+        { word: "Admire", message: "'To admire is to see the beauty in someone that the world may overlook.' — Pride and Prejudice, Jane Austen" },
+        { word: "Caring", message: "Caring is the quiet strength that holds love together through every storm." },
+        { word: "Endearment", message: "'Endearment is the sweet language of love, spoken in every little gesture.' — Little Women, Louisa May Alcott" },
+        { word: "Fondness", message: "Fondness is the warmth that lingers long after the moment has passed." },
+        { word: "Infatuation", message: "'Infatuation is the spark that can light the fire of a lifetime.' — The Great Gatsby, F. Scott Fitzgerald" },
+        { word: "Loyalty", message: "'Loyalty is love's steadfast companion, unwavering through time and trial.' — The Count of Monte Cristo, Alexandre Dumas" },
+        { word: "Ardor", message: "Ardor is the fiery passion that fuels the journey of love." },
+        { word: "Affinity", message: "'Affinity is the invisible thread that draws two souls together.' — The Alchemist, Paulo Coelho" },
+        { word: "Romantic", message: "'Romantic love is the poetry written on the heart's pages.' — The Notebook, Nicholas Sparks" },
+        { word: "Sincerity", message: "Sincerity is the honest voice of love, speaking without fear or pretense." },
+        { word: "Attraction", message: "'Attraction is the magnetism that pulls hearts closer together.' — Romeo and Juliet, William Shakespeare" },
+        { word: "Companionship", message: "Companionship is the quiet joy of walking through life hand in hand." },
+        { word: "Empathy", message: "'Empathy is the bridge that connects hearts, allowing love to flow freely.' — The Book Thief, Markus Zusak" },
+        { word: "Intimacy", message: "Intimacy is the sacred space where two souls meet and understand each other completely." },
+        { word: "Kindness", message: "'Kindness is love in action, a gentle touch on the world's wounds.' — To Kill a Mockingbird, Harper Lee" },
+        { word: "Respect", message: "Respect is the foundation that allows love to grow strong and true." },
+        { word: "Support", message: "'Support is the hand that lifts you up when the world tries to pull you down.' — The Help, Kathryn Stockett" },
+        { word: "Understanding", message: "Understanding is the light that banishes the shadows of misunderstanding." },
+        { word: "Patience", message: "'Patience is love's quiet strength, waiting without complaint.' — Jane Eyre, Charlotte Brontë" },
+        { word: "Compassion", message: "Compassion is the heart's response to the pain of others, wrapped in kindness." },
+        { word: "Encouragement", message: "'Encouragement is the voice of love, whispering 'you can' when the world says 'you can't.'' — Wonder, R.J. Palacio" },
+        { word: "Gratitude", message: "Gratitude is the echo of love, thanking the universe for the gift of each other." },
+        { word: "Hopefulness", message: "'Hopefulness is the dawn that follows the darkest night of the soul.' — The Hobbit, J.R.R. Tolkien" },
+        { word: "Contentment", message: "Contentment is the peace that comes from loving and being loved in return." },
+        { word: "Joyfulness", message: "'Joyfulness is the song of the heart when love fills its every corner.' — Anne of Green Gables, L.M. Montgomery" },
+        { word: "Reassurance", message: "Reassurance is the gentle reminder that you are not alone, and never will be." },
+        { word: "Solace", message: "'Solace is the comfort found in the arms of the one who loves you unconditionally.' — The Fault in Our Stars, John Green" },
+        { word: "Tranquility", message: "Tranquility is the calm that comes from knowing you are loved beyond measure." },
+        { word: "Warmth", message: "'Warmth is the glow of love, lighting up even the coldest of days.' — Little Women, Louisa May Alcott" },
+        { word: "Acceptance", message: "Acceptance is the embrace that says, 'I love you as you are.'" },
+        { word: "Admiration", message: "'Admiration is the spark that ignites the flame of love.' — Pride and Prejudice, Jane Austen" },
+        { word: "Affectionate", message: "Affectionate love is the tender touch that heals and comforts." },
+        { word: "Amity", message: "'Amity is the peaceful bond that unites hearts in harmony.' — The Giver, Lois Lowry" },
+        { word: "Bond", message: "A bond is the unbreakable tie that connects hearts across time and distance." },
+        { word: "Charity", message: "'Charity is love in its purest form, given freely and without expectation.' — Les Misérables, Victor Hugo" },
+        { word: "Closeness", message: "Closeness is the sweet comfort of knowing you are never alone." },
+        { word: "Comforting", message: "'Comforting love is the shelter that guards against life's storms.' — The Secret Garden, Frances Hodgson Burnett" },
+        { word: "Connection", message: "Connection is the invisible thread that binds hearts together." },
+        { word: "Delight", message: "'Delight is the laughter that bubbles up when love fills your heart.' — Emma, Jane Austen" },
+        { word: "Devoted", message: "To be devoted is to give your heart completely and without reservation." },
+        { word: "Endearing", message: "'Endearing love is the sweetness that lingers in every memory.' — Winnie-the-Pooh, A.A. Milne" },
+        { word: "Fond", message: "Fond love is the warmth that wraps around you like a favorite blanket." },
+        { word: "Gentle", message: "'Gentle love is the soft touch that heals and soothes the soul.' — The Velveteen Rabbit, Margery Williams" },
+        { word: "Harmony", message: "Harmony is the melody that hearts create when they beat as one." },
+        { word: "Inspiration", message: "'Inspiration is the spark that love ignites in the darkest of times.' — The Alchemist, Paulo Coelho" },
+        { word: "Kindred", message: "Kindred spirits are the hearts that recognize each other across any distance." },
+        { word: "Loyal", message: "'Loyal love is the anchor that holds fast in the stormiest seas.' — The Odyssey, Homer" },
+        { word: "Nurturing", message: "Nurturing love is the care that helps hearts grow strong and true." },
+        { word: "Passionate", message: "'Passionate love is the fire that burns brightest in the coldest nights.' — Jane Eyre, Charlotte Brontë" },
+        { word: "Reverence", message: "Reverence is the deep respect that honors the soul of the one you love." },
+        { word: "Security", message: "'Security is the peace that comes from knowing you are loved unconditionally.' — The Little Prince, Antoine de Saint-Exupéry" },
+        { word: "Sympathy", message: "Sympathy is the heart's echo, feeling with another in their joy and pain." },
+        { word: "Tenderness", message: "'Tenderness is the gentle hand that wipes away tears and soothes the soul.' — The Notebook, Nicholas Sparks" },
+        { word: "Trusting", message: "Trusting love is the courage to open your heart completely." },
+        { word: "Unity", message: "'Unity is the strength found in standing together, heart to heart.' — The Four Agreements, Don Miguel Ruiz" },
+        { word: "Warmth", message: "Warmth is the glow of love, lighting up even the coldest of days." },
+        { word: "Yearning", message: "'Yearning is the heart's call to the one it loves, across any distance.' — The Time Traveler's Wife, Audrey Niffenegger" }
     ];
 
-    function getRandomWords(count) {
-        const shuffled = [...allLoveWords].sort(() => 0.5 - Math.random());
-        return shuffled.slice(0, count);
-    }
+    function createEnvelopes() {
+        const now = new Date();
+        const month = now.getMonth();
+        const year = now.getFullYear();
+        const daysInMonth = getDaysInMonth(month, year);
 
-    function getTodayLetter() {
-        const today = new Date().toISOString().split('T')[0];
-        const storedLetter = localStorage.getItem(`todayLetter_${today}`);
+        envelopesContainer.innerHTML = '';
 
-        if (storedLetter) {
-            return JSON.parse(storedLetter);
+        const shuffledLetters = [...allLoveWords].sort(() => 0.5 - Math.random());
+
+        for (let i = 1; i <= daysInMonth; i++) {
+            const envelope = document.createElement('div');
+            envelope.className = 'envelope';
+            envelope.innerHTML = `
+                <div class="flap"></div>
+                <div class="letter">❤️</div>
+            `;
+            envelope.dataset.day = i;
+            const letter = shuffledLetters[(i - 1) % shuffledLetters.length];
+            const randomBgIndex = Math.floor(Math.random() * backgrounds.length);
+            letter.bg = backgrounds[randomBgIndex];
+            envelope.dataset.letter = JSON.stringify(letter);
+
+            envelope.addEventListener('click', () => {
+                if (currentOpenEnvelope && currentOpenEnvelope !== envelope) {
+                    currentOpenEnvelope.classList.remove('open');
+                }
+                envelope.classList.toggle('open');
+                currentOpenEnvelope = envelope.classList.contains('open') ? envelope : null;
+                if (envelope.classList.contains('open')) {
+                    const letterData = JSON.parse(envelope.dataset.letter);
+                    openLetter(letterData, i);
+                }
+            });
+            envelopesContainer.appendChild(envelope);
         }
 
-        let availableLetters = [...allLoveWords];
-        const randomIndex = Math.floor(Math.random() * availableLetters.length);
-        const selectedLetter = availableLetters[randomIndex];
-        const randomBgIndex = Math.floor(Math.random() * backgrounds.length);
-        selectedLetter.bg = backgrounds[randomBgIndex];
-
-        localStorage.setItem(`todayLetter_${today}`, JSON.stringify(selectedLetter));
-
-        return selectedLetter;
+        showTodaysLetter();
     }
 
-    function createEnvelope(letter, index) {
-        const envelope = document.createElement('div');
-        envelope.className = 'envelope';
-        envelope.innerHTML = `<div class="flap"></div><div class="letter">${letter.word}</div>`;
-        envelope.addEventListener('click', () => openLetter(letter));
-        return envelope;
+    function showTodaysLetter() {
+        const today = new Date().getDate();
+        const todayKey = new Date().toISOString().split('T')[0];
+        const storedTodayLetter = localStorage.getItem(`todayLetter_${todayKey}`);
+
+        if (storedTodayLetter) {
+            const letter = JSON.parse(storedTodayLetter);
+            openLetter(letter, today);
+            const todayEnvelope = document.querySelector(`.envelope[data-day="${today}"]`);
+            if (todayEnvelope) {
+                todayEnvelope.classList.add('open');
+                currentOpenEnvelope = todayEnvelope;
+            }
+        } else {
+            const randomIndex = Math.floor(Math.random() * allLoveWords.length);
+            const selectedLetter = allLoveWords[randomIndex];
+            const randomBgIndex = Math.floor(Math.random() * backgrounds.length);
+            selectedLetter.bg = backgrounds[randomBgIndex];
+
+            localStorage.setItem(`todayLetter_${todayKey}`, JSON.stringify(selectedLetter));
+            openLetter(selectedLetter, today);
+            const todayEnvelope = document.querySelector(`.envelope[data-day="${today}"]`);
+            if (todayEnvelope) {
+                todayEnvelope.classList.add('open');
+                currentOpenEnvelope = todayEnvelope;
+            }
+        }
     }
 
     function openLetter(letter) {
         body.style.backgroundImage = letter.bg.url;
-        paper.innerHTML = `<h2>Today's Love from Me</h2><h3>${letter.word}</h3><p>${letter.message}</p><button id="close-btn"><i class="fas fa-heart"></i> Close</button>`;
+        letterContent.innerHTML = `
+            <h2>A special message for you</h2>
+            <h3>${letter.word}</h3>
+            <p>${letter.message}</p>
+        `;
         modal.style.display = 'flex';
-        document.getElementById('close-btn').addEventListener('click', () => {
-            modal.style.display = 'none';
-            body.style.backgroundImage = 'linear-gradient(135deg, #fff8f8 0%, #fff0f5 100%)';
-        });
     }
 
-    function initializeEnvelopes() {
-        envelopesContainer.innerHTML = '';
-        const randomWords = getRandomWords(31);
-        randomWords.forEach((letter, index) => {
-            const randomBgIndex = Math.floor(Math.random() * backgrounds.length);
-            letter.bg = backgrounds[randomBgIndex];
-            envelopesContainer.appendChild(createEnvelope(letter, index));
-        });
-    }
+    document.getElementById('closeModal').addEventListener('click', () => {
+        modal.style.display = 'none';
+        body.style.backgroundImage = 'linear-gradient(135deg, #fff8f8 0%, #fff0f5 100%)';
+        if (currentOpenEnvelope) {
+            currentOpenEnvelope.classList.remove('open');
+            currentOpenEnvelope = null;
+        }
+    });
 
     function createGalaxyAnimation() {
         for (let i = 0; i < 100; i++) {
@@ -217,12 +246,53 @@ document.addEventListener('DOMContentLoaded', function() {
             galaxyAnimation.appendChild(shootingStar);
         }
     }
+    document.getElementById('secretLetterButton').addEventListener('click', function() {
+        const modal = document.getElementById('secretLetterModal');
+        const textContainer = document.getElementById('secretLetterText');
 
-    initializeEnvelopes();
+        textContainer.innerHTML = '';
+        textContainer.classList.remove('typewriter-container');
+
+        modal.style.display = 'flex';
+
+        const cursor = document.createElement('span');
+        cursor.className = 'typewriter-cursor';
+
+        const secretLetterContent = `
+        This Page is created by Baheeddine Dahen to the one girl he loved more than anything but couldn't be with Azza Chouikh 
+        in this message i want to explain the idea of this creation it's letters in envelops applied on a fonction to change that allows 
+        the number to be the same as the current month and everytime you refresh the letters changes also
+        do including the special background every letter can have one of the 31 special effects randomly also there is one letter selected
+        randomly everyday everytime you refresh or open the page it appears it's a daily selection.
+        And for the reason i did that for because sometimes life can be hard and we can feel tired of everything and 
+        when you do feel like that you can open and read some to always remember that im here with 
+        you and ill do everything i could to make you smile or to prove how special you are for me 
+        and because i was never good with words i want you to see this and know how much i care i about you 
+        to create this for you and only you`;
+
+        textContainer.classList.add('typewriter-container');
+        textContainer.appendChild(cursor);
+
+        let i = 0;
+        const typingInterval = setInterval(function() {
+            if (i < secretLetterContent.length) {
+                if (secretLetterContent.charAt(i) === '\n') {
+                    cursor.insertAdjacentHTML('beforebegin', '<br>');
+                } else {
+                    cursor.insertAdjacentHTML('beforebegin', secretLetterContent.charAt(i));
+                }
+                i++;
+                textContainer.scrollTop = textContainer.scrollHeight;
+            } else {
+                clearInterval(typingInterval);
+            }
+        }, 50);
+    });
+
+    document.getElementById('returnButton').addEventListener('click', function() {
+        document.getElementById('secretLetterModal').style.display = 'none';
+    });
+
+    createEnvelopes();
     createGalaxyAnimation();
-
-    const todayLetter = getTodayLetter();
-    if (todayLetter) {
-        openLetter(todayLetter);
-    }
 });

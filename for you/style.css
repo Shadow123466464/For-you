@@ -283,34 +283,112 @@ h1 {
   to { transform: translateX(120vw) translateY(50vh); }
 }
 
-.galaxy-bg { background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e) !important; }
-.nebula-bg { background: linear-gradient(to bottom, #4b6cb7, #182848) !important; }
-.night-bg { background: linear-gradient(to bottom, #0a0e2a, #1a1f3a) !important; }
-.cosmic-bg { background: linear-gradient(to bottom, #000428, #004e92) !important; }
-.twilight-bg { background: linear-gradient(to bottom, #1e3c72, #2a5298) !important; }
-.aurora-bg { background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364) !important; }
-.mystic-bg { background: linear-gradient(to bottom, #2c3e50, #4ca1af) !important; }
-.void-bg { background: linear-gradient(to bottom, #111, #333) !important; }
-.dream-bg { background: linear-gradient(to bottom, #2980b9, #6dd5fa, #ffffff) !important; }
-.eternity-bg { background: linear-gradient(to bottom, #0f2027, #2c5364) !important; }
-.infinity-bg { background: linear-gradient(to bottom, #141e30, #243b55) !important; }
-.horizon-bg { background: linear-gradient(to bottom, #000000, #434343) !important; }
-.paradise-bg { background: linear-gradient(to bottom, #16222a, #3a6073) !important; }
-.ocean-bg { background: linear-gradient(to bottom, #005c97, #363795) !important; }
-.sunset-bg { background: linear-gradient(to bottom, #36d1dc, #5b86e5) !important; }
-.dawn-bg { background: linear-gradient(to bottom, #ff758c, #ff7eb3) !important; }
-.magic-bg { background: linear-gradient(to bottom, #5433ff, #20bdff, #a5fecb) !important; }
-.enchant-bg { background: linear-gradient(to bottom, #7b4397, #dc2430) !important; }
-.whisper-bg { background: linear-gradient(to bottom, #3a7bd5, #00d2ff) !important; }
-.echo-bg { background: linear-gradient(to bottom, #000000, #0f0c29) !important; }
-.radiance-bg { background: linear-gradient(to bottom, #f12711, #f5af19) !important; }
-.serenity-bg { background: linear-gradient(to bottom, #8e2de2, #4a00e0) !important; }
-.harmony-bg { background: linear-gradient(to bottom, #4facfe, #00f2fe) !important; }
-.tranquil-bg { background: linear-gradient(to bottom, #48cae4, #0077b6) !important; }
-.velvet-bg { background: linear-gradient(to bottom, #ad5389, #3c1053) !important; }
-.bliss-bg { background: linear-gradient(to bottom, #360033, #0b8793) !important; }
-.celestial-bg { background: linear-gradient(to bottom, #0c3483, #a2b6df, #6b8cff, #a8c0ff) !important; }
-.luminous-bg { background: linear-gradient(to bottom, #654ea3, #eaafc8) !important; }
-.ethereal-bg { background: linear-gradient(to bottom, #108dc7, #ef8e38) !important; }
-.mystique-bg { background: linear-gradient(to bottom, #2b5876, #4e4376) !important; }
-.aurora-boreal-bg { background: linear-gradient(to bottom, #000428, #004e92) !important; }
+.secret-letter-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #ff6b81;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 12px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  font-family: 'Dancing Script', cursive;
+  transition: all 0.3s ease;
+}
+
+.secret-letter-button:hover {
+  background-color: #ff5266;
+  transform: scale(1.05);
+}
+
+.secret-letter-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 1001;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
+}
+
+.secret-letter-content {
+  background-color: rgba(255, 255, 255, 0.95);
+  padding: 30px;
+  border-radius: 10px;
+  max-width: 600px;
+  width: 90%;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  position: relative;
+  text-align: center;
+}
+
+.secret-letter-text {
+  font-family: 'Dancing Script', cursive;
+  font-size: 24px;
+  line-height: 1.6;
+  color: #4a1c2f;
+  margin-bottom: 20px;
+  min-height: 300px;
+  text-align: left;
+  white-space: pre-wrap; 
+  word-wrap: break-word; 
+  overflow-y: auto;
+  max-height: 350px;
+  padding-right: 10px;
+}
+
+.typewriter-cursor {
+  display: inline-block;
+  width: 3px;
+  height: 30px;
+  background-color: #ff6b81;
+  animation: blink 1s infinite;
+  vertical-align: middle;
+  margin-left: 2px;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
+}
+
+.typewriter-container {
+  position: relative;
+  min-height: 300px;
+}
+
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: #ff6b81; }
+}
+
+.return-button {
+  background-color: #ff6b81;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 10px 25px;
+  font-size: 16px;
+  cursor: pointer;
+  font-family: 'Montserrat', sans-serif;
+  transition: all 0.3s ease;
+  margin-top: 20px;
+}
+
+.return-button:hover {
+  background-color: #ff5266;
+}
