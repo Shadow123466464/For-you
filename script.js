@@ -313,7 +313,7 @@ document.addEventListener('DOMContentLoaded', function() {
         cursor.className = 'typewriter-cursor';
 
         const secretLetterContent = `
-        This Page is created by Baheeddine Dahen to the one girl he loved more than anything but couldn't be with Azza.  
+        This Page is created by Baheeddine Dahen to honor the one girl he loved more than anything but couldn't be with Azza.  
         in this message i want to explain the idea of this creation it's letters and there is a fonction that allows 
         the number of the envelopes to be the same as the current month, everytime you refresh the letters changes along with the
         the special background every letter can have one of the 31 special effects randomly also there is one letter selected
@@ -350,6 +350,7 @@ document.addEventListener('DOMContentLoaded', function() {
     createEnvelopes();
     createGalaxyAnimation();
 });
+
 
 
 
