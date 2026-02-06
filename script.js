@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
         { class: 'aurora-boreal-bg', url: 'linear-gradient(to bottom, #000428, #004e92)' }
     ];
 
-    const allLoveWords = [
+        const allLoveWords = [
         { word: "Devotion", message: "Devotion is the quiet promise of forever, whispered in every glance and touch." },
         { word: "Passion", message: "'Passion is the fire that ignites the soul and burns away the shadows of doubt.' — The Cruel Prince, Holly Black" },
         { word: "Tenderness", message: "Tenderness is the gentle touch that heals the heart and soothes the soul." },
@@ -132,7 +132,61 @@ document.addEventListener('DOMContentLoaded', function() {
         { word: "Trusting", message: "Trusting love is the courage to open your heart completely." },
         { word: "Unity", message: "'Unity is the strength found in standing together, heart to heart.' — The Four Agreements, Don Miguel Ruiz" },
         { word: "Warmth", message: "Warmth is the glow of love, lighting up even the coldest of days." },
-        { word: "Yearning", message: "'Yearning is the heart's call to the one it loves, across any distance.' — The Time Traveler's Wife, Audrey Niffenegger" }
+        { word: "Yearning", message: "'Yearning is the heart's call to the one it loves, across any distance.' — The Time Traveler's Wife, Audrey Niffenegger" },
+        { word: "Eternal Flame", message: "'I feel a burning in my heart that won't go away. I'm gonna let it shine and show you the way.' — The Bangles, Eternal Flame" },
+        { word: "Unchained Melody", message: "'Oh, my love, my darling, I've hungered for your touch. A long, lonely time, and time goes by so slowly.' — The Righteous Brothers, Unchained Melody" },
+        { word: "Endless Love", message: "'Two hearts, two hearts that beat as one. Our lives have just begun.' — Diana Ross & Lionel Richie, Endless Love" },
+        { word: "I Will Always Love You", message: "'And I will always love you. I will always love you.' — Whitney Houston, I Will Always Love You" },
+        { word: "Wonderful Tonight", message: "'It's late in the evening; she's wondering what clothes to wear. She puts on her make-up and brushes her long blonde hair.' — Eric Clapton, Wonderful Tonight" },
+        { word: "Love of My Life", message: "'Love of my life, you've hurt me. You've broken my heart, and now you leave me.' — Queen, Love of My Life" },
+        { word: "Nothing Compares 2 U", message: "'It's been seven hours and fifteen days since you took your love away.' — Sinéad O'Connor, Nothing Compares 2 U" },
+        { word: "All of Me", message: "'Cause all of me loves all of you. Love your curves and all your edges, all your perfect imperfections.' — John Legend, All of Me" },
+        { word: "Perfect", message: "'If you let me, I know I can make you happy. Baby, just let me be your perfect.' — Ed Sheeran, Perfect" },
+        { word: "A Thousand Years", message: "'I have died every day waiting for you. Darling, don't be afraid, I have loved you for a thousand years.' — Christina Perri, A Thousand Years" },
+        { word: "Can't Help Falling in Love", message: "'Take my hand, take my whole life too. For I can't help falling in love with you.' — Elvis Presley, Can't Help Falling in Love" },
+        { word: "My Heart Will Go On", message: "'Near, far, wherever you are, I believe that the heart does go on.' — Celine Dion, My Heart Will Go On" },
+        { word: "I Don't Want to Miss a Thing", message: "'I could stay awake just to hear you breathing. Watch you smile while you are sleeping.' — Aerosmith, I Don't Want to Miss a Thing" },
+        { word: "You Are the Sunshine of My Life", message: "'You are the sunshine of my life. That's why I'll always be around.' — Stevie Wonder, You Are the Sunshine of My Life" },
+        { word: "Just the Way You Are", message: "'Don't go changing to try and please me. You never let me down before.' — Billy Joel, Just the Way You Are" },
+        { word: "Latch", message: "'Now I got you in my space, I won't let go of you. Got me shivering in every way, shape, and form.' — Disclosure ft. Sam Smith, Latch" },
+        { word: "Stay With Me", message: "'Guess it's true, I'm not good at a one-night stand. But I still need love 'cause I'm just a man.' — Sam Smith, Stay With Me" },
+        { word: "Say You Won't Let Go", message: "'I met you in the dark, you lit me up. You made me feel as though I was enough.' — James Arthur, Say You Won't Let Go" },
+        { word: "Photograph", message: "'Loving can hurt, loving can hurt sometimes. But it's the only thing that I know.' — Ed Sheeran, Photograph" },
+        { word: "Thinking Out Loud", message: "'When my hair's all but gone and my memory fades, and the crowds don't remember my name.' — Ed Sheeran, Thinking Out Loud" },
+        { word: "Love Me Like You Do", message: "'Touch me like you do, love me like you do. Take my breath away, want me like you do.' — Ellie Goulding, Love Me Like You Do" },
+        { word: "Stay", message: "'All along it was a fever, a hotter heat than any other. I'm not sure how much longer I can take.' — Rihanna ft. Mikky Ekko, Stay" },
+        { word: "Someone Like You", message: "'Never mind, I'll find someone like you. I wish nothing but the best for you too.' — Adele, Someone Like You" },
+        { word: "Make You Feel My Love", message: "'When the rain is blowing in your face, and the whole world is on your case. I could offer you a warm embrace to make you feel my love.' — Adele, Make You Feel My Love" },
+        { word: "All I Ask", message: "'If this is my last night with you, hold me like I'm more than just a friend. Give me a memory I can use in the back of my mind.' — Adele, All I Ask" },
+        { word: "When a Man Loves a Woman", message: "'When a man loves a woman, can't keep his mind on nothing else. He'd trade the world for the good thing he's found.' — Percy Sledge, When a Man Loves a Woman" },
+        { word: "At Last", message: "'At last, my love has come along. My lonely days are over, and life is like a song.' — Etta James, At Last" },
+        { word: "Unforgettable", message: "'Unforgettable, that's what you are. Unforgettable, though near or far.' — Nat King Cole, Unforgettable" },
+        { word: "The Way You Look Tonight", message: "'Someday, when I'm awfully low, when the world is cold. I will feel a glow just thinking of you.' — Frank Sinatra, The Way You Look Tonight" },
+        { word: "Fly Me to the Moon", message: "'Fly me to the moon, let me play among the stars. Let me see what spring is like on Jupiter and Mars.' — Frank Sinatra, Fly Me to the Moon" },
+        { word: "La Vie en Rose", message: "'When you press me to your heart, I'm in a world apart. A world where roses bloom.' — Louis Armstrong, La Vie en Rose" },
+        { word: "What a Wonderful World", message: "'I see trees of green, red roses too. I see them bloom for me and you.' — Louis Armstrong, What a Wonderful World" },
+        { word: "L-O-V-E", message: "'L is for the way you look at me. O is for the only one I see.' — Nat King Cole, L-O-V-E" },
+        { word: "Crazy Love", message: "'I can hear her heart beat for a thousand miles. And the heavens open every time she smiles.' — Van Morrison, Crazy Love" },
+        { word: "Into the Mystic", message: "'We were born before the wind, also younger than the sun. Ere the bonnie boat was won as we sailed into the mystic.' — Van Morrison, Into the Mystic" },
+        { word: "Have I Told You Lately", message: "'Have I told you lately that I love you? Have I told you there's no one else above you?' — Van Morrison, Have I Told You Lately" },
+        { word: "God Only Knows", message: "'If you should ever leave me, though life would still go on, believe me. The world could show nothing to me, so what good would living do me?' — The Beach Boys, God Only Knows" },
+        { word: "In My Life", message: "'There are places I'll remember all my life, though some have changed. Some forever, not for better.' — The Beatles, In My Life" },
+        { word: "Something", message: "'Something in the way she moves, attracts me like no other lover. Something in the way she woos me.' — The Beatles, Something" },
+        { word: "Here, There and Everywhere", message: "'To be here with you is bringing me to life. I don't want to leave you now you've taken me so far.' — The Beatles, Here, There and Everywhere" },
+        { word: "And I Love Her", message: "'Bright are the stars that shine, dark is the sky. I know this love of mine will never die.' — The Beatles, And I Love Her" },
+        { word: "If I Fell", message: "'If I fell in love with you, would you promise to be true? And help me understand 'cause I've been in love before.' — The Beatles, If I Fell" },
+        { word: "I Want to Hold Your Hand", message: "'Oh please, say to me you'll let me be your man. And please, say to me you'll let me hold your hand.' — The Beatles, I Want to Hold Your Hand" },
+        { word: "Yesterday", message: "'Yesterday, all my troubles seemed so far away. Now it looks as though they're here to stay.' — The Beatles, Yesterday" },
+        { word: "Let It Be", message: "'When I find myself in times of trouble, Mother Mary comes to me. Speaking words of wisdom, let it be.' — The Beatles, Let It Be" },
+        { word: "Hey Jude", message: "'Hey Jude, don't make it bad. Take a sad song and make it better.' — The Beatles, Hey Jude" },
+        { word: "Here Comes the Sun", message: "'Here comes the sun, doo-doo-doo-doo. Here comes the sun, and I say it's all right.' — The Beatles, Here Comes the Sun" },
+        { word: "Blackbird", message: "'Blackbird singing in the dead of night. Take these broken wings and learn to fly.' — The Beatles, Blackbird" },
+        { word: "Golden Slumbers", message: "'Once there was a way to get back homeward. Once there was a way to get back home.' — The Beatles, Golden Slumbers" },
+        { word: "Because", message: "'Because the world is round it turns me on. Because the wind is high it blows my mind.' — The Beatles, Because" },
+        { word: "Wild Horses", message: "'Wild horses couldn't drag me away. Wild, wild horses, we'll ride them someday.' — The Rolling Stones, Wild Horses" },
+        { word: "Angie", message: "'Angie, Angie, when will those clouds all disappear? Angie, Angie, ain't it good to be alive?' — The Rolling Stones, Angie" },
+        { word: "Beast of Burden", message: "'I'll never be your beast of burden. My back is broad but it's hurting.' — The Rolling Stones, Beast of Burden" },
+        { word: "Wild Horses", message: "'Childhood living is easy to do. The things you wanted, I bought them for you.' — The Rolling Stones, Wild Horses" }
     ];
 
     function createEnvelopes() {
@@ -296,5 +350,6 @@ document.addEventListener('DOMContentLoaded', function() {
     createEnvelopes();
     createGalaxyAnimation();
 });
+
 
 
