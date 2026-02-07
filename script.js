@@ -323,15 +323,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const secretLetterContent = `
         This Page is created by Baheeddine Dahen to honor the one girl he loved more than anything but couldn't be with Azza.  
-        in this message i want to explain the idea of this creation it's letters and there is a fonction that allows 
-        the number of the envelopes to be the same as the current month, everytime you refresh the letters changes along with the
-        the special background every letter can have one of the 31 special effects randomly also there is one letter selected
-        randomly everyday, everytime you refresh or open the page it appears it's a daily selection.
+        in this message i want to explain the idea of this creation it's letters and there is a fonction that allows the number of the envelopes to be the same as the current month, 
+        everytime you refresh the letters changes along with the special background every letter can have one of the 31 special effects randomly 
+        also there is one letter selected randomly everyday, everytime you refresh or open the page it appears it's a daily selection.
         And for the reason i did that for because sometimes life can be hard and we can feel tired of everything and 
         when you do feel like that you can open and read some to always remember that im here with you 
-        and ill do everything i could to make you smile or to prove how special you are for me 
-        and because i was never good with words i want you to see this and know how much i care about you 
-        to create this for you and only you`;
+        and ill do everything i could to make you smile or to prove how special you are for me and how much you meant because in that time i was alone without i lost myself
+        and i lost the joy of everything like the life became tasteless without you being around to give it colors and brighten my day with your presence in it
+        and because i was never good with words i want you to see this and know how much i care about you to create this.
+        For you and only you`;
 
         textContainer.classList.add('typewriter-container');
         textContainer.appendChild(cursor);
@@ -359,6 +359,7 @@ document.addEventListener('DOMContentLoaded', function() {
     createEnvelopes();
     createGalaxyAnimation();
 });
+
 
 
 
