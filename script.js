@@ -331,7 +331,7 @@ document.addEventListener('DOMContentLoaded', function() {
         how much you meant because in that time i was alone without you i lost myself, i lost the joy of everything like the life became tasteless without you being around to give it colors and brighten my day
         with your presenceand because i was never good with words i want you to see this and know how much i care about you to create this.
         For you and only you 
-        因为你是那种值得被写进书里的女孩`;
+        Yīnwèi nǐ shì nà zhǒng zhídé bèi xiě jìn shū lǐ de nǚhái.`;
 
         textContainer.classList.add('typewriter-container');
         textContainer.appendChild(cursor);
@@ -359,6 +359,7 @@ document.addEventListener('DOMContentLoaded', function() {
     createEnvelopes();
     createGalaxyAnimation();
 });
+
 
 
 
