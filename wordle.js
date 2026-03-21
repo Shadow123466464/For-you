@@ -13,7 +13,6 @@ const wordHints = {
     "TRUST": "Firm belief in the reliability of someone",
     "LONGING": "A yearning desire for something or someone",
     "JOY": "A feeling of great pleasure and happiness",
-    "HATE": "A feeling the opposite of love",
     "HOPE": "A feeling of expectation for something positive",
     "SERENITY": "The state of being calm and peaceful",
     "BELONGING": "The feeling of being accepted and fitting in",
@@ -306,11 +305,12 @@ const wordHints = {
     "VELVET": "A soft luxurious fabric",
     "RABBIT": "A small furry mammal",
     "NURSERY": "A room for young children",
-    "SKIN": "The outer covering of the body"
+    "SKIN": "The outer covering of the body",
+    "HATE": "A feeling the opposite of love"
 };
 
 class LoveWordle {
-    constructor() {
+    constructor(resumeState = null) {
         this.wordleOverlay = document.getElementById('wordleOverlay');
         this.wordleBoard = document.getElementById('wordleBoard');
         this.wordleKeyboard = document.getElementById('wordleKeyboard');
@@ -332,19 +332,30 @@ class LoveWordle {
         this.guesses = [];
         this.hintsUsed = 0;
         this.maxHints = 3;
+        this.keyboardState = {};
         
         currentWordleGame = this;
         
-        this.init();
+        this.init(resumeState);
     }
     
-    init() {
+    init(resumeState) {
         this.selectRandomWord();
         this.createBoard();
         this.createKeyboard();
         this.setupEventListeners();
         this.hideMessagePreview();
         this.resetHintButton();
+        this.displayStreak();
+        
+        if (resumeState) {
+            this.restoreGameState(resumeState);
+        } else {
+            const savedState = this.loadGameState();
+            if (savedState) {
+                this.restoreGameState(savedState);
+            }
+        }
     }
     
     hideMessagePreview() {
@@ -358,6 +369,30 @@ class LoveWordle {
         hintBtn.disabled = false;
         hintBtn.style.opacity = '1';
         this.wordleHints.innerHTML = '';
+    }
+    
+    displayStreak() {
+        const streak = getStreak();
+        let streakDisplay = document.getElementById('streakDisplay');
+        
+        if (!streakDisplay) {
+            streakDisplay = document.createElement('div');
+            streakDisplay.id = 'streakDisplay';
+            streakDisplay.className = 'streak-display';
+            
+            const header = document.querySelector('.wordle-header');
+            if (header) {
+                header.appendChild(streakDisplay);
+            }
+        }
+        
+        if (streak > 0) {
+            streakDisplay.innerHTML = `🔥 ${streak} day${streak > 1 ? 's' : ''} streak`;
+            streakDisplay.style.display = 'block';
+        } else {
+            streakDisplay.innerHTML = '🔥 Start your streak!';
+            streakDisplay.style.display = 'block';
+        }
     }
     
     selectRandomWord() {
@@ -450,7 +485,7 @@ class LoveWordle {
         const skipBtn = document.getElementById('skipBtn');
         const newSkipBtn = skipBtn.cloneNode(true);
         skipBtn.parentNode.replaceChild(newSkipBtn, skipBtn);
-        newSkipBtn.addEventListener('click', () => this.skipGame());
+        newSkipBtn.addEventListener('click', () => this.pauseGame());
     }
     
     handleKeyPress(key) {
@@ -471,6 +506,7 @@ class LoveWordle {
             tile.textContent = letter;
             tile.classList.add('filled');
             this.currentTile++;
+            this.saveGameState();
         }
     }
     
@@ -481,6 +517,7 @@ class LoveWordle {
             if (tile) {
                 tile.textContent = '';
                 tile.classList.remove('filled');
+                this.saveGameState();
             }
         }
     }
@@ -498,13 +535,16 @@ class LoveWordle {
         
         if (guess === this.currentWord) {
             this.gameOver = true;
+            this.clearGameState();
             setTimeout(() => this.showResult(true), 1500);
         } else if (this.currentRow >= this.maxAttempts - 1) {
             this.gameOver = true;
+            this.clearGameState();
             setTimeout(() => this.showResult(false), 1500);
         } else {
             this.currentRow++;
             this.currentTile = 0;
+            this.saveGameState();
         }
     }
     
@@ -546,6 +586,8 @@ class LoveWordle {
                 
                 const key = document.querySelector(`.key[data-key="${guessArray[i]}"]`);
                 if (key) {
+                    this.keyboardState[guessArray[i]] = status;
+                    
                     if (status === 'correct') {
                         key.classList.remove('present', 'absent');
                         key.classList.add('correct');
@@ -616,6 +658,7 @@ class LoveWordle {
         }
         
         this.wordleHints.innerHTML = `<span class="hint-text">${hint}</span>`;
+        this.saveGameState();
     }
     
     showResult(won) {
@@ -624,12 +667,144 @@ class LoveWordle {
         this.resultWord.textContent = this.currentWord;
         this.resultMessage.textContent = this.currentMessage;
         this.wordleResult.classList.add('show');
+        
+        updateStreak();
+        this.displayStreak();
+        
+        const today = new Date().toISOString().split('T')[0];
+        localStorage.setItem('wordlePlayed_' + today, 'true');
     }
     
-    skipGame() {
-        this.gameOver = true;
-        this.showResult(false);
+    pauseGame() {
+        this.saveGameState();
+        
+        this.wordleOverlay.classList.add('hidden');
+        
+        document.getElementById('mainContent').style.display = 'block';
     }
+    
+    saveGameState() {
+        const today = new Date().toISOString().split('T')[0];
+        
+        const tiles = [];
+        for (let i = 0; i <= this.currentRow; i++) {
+            const rowTiles = [];
+            for (let j = 0; j < this.wordLength; j++) {
+                const tile = document.querySelector(`.wordle-tile[data-row="${i}"][data-col="${j}"]`);
+                rowTiles.push({
+                    letter: tile.textContent,
+                    status: tile.classList.contains('correct') ? 'correct' : 
+                            tile.classList.contains('present') ? 'present' : 
+                            tile.classList.contains('absent') ? 'absent' : ''
+                });
+            }
+            tiles.push(rowTiles);
+        }
+        
+        const state = {
+            currentRow: this.currentRow,
+            currentTile: this.currentTile,
+            guesses: this.guesses,
+            hintsUsed: this.hintsUsed,
+            keyboardState: this.keyboardState,
+            tiles: tiles,
+            gameOver: this.gameOver
+        };
+        
+        localStorage.setItem('wordleGameState_' + today, JSON.stringify(state));
+    }
+    
+    loadGameState() {
+        const today = new Date().toISOString().split('T')[0];
+        const saved = localStorage.getItem('wordleGameState_' + today);
+        
+        if (saved) {
+            return JSON.parse(saved);
+        }
+        return null;
+    }
+    
+    clearGameState() {
+        const today = new Date().toISOString().split('T')[0];
+        localStorage.removeItem('wordleGameState_' + today);
+    }
+    
+    restoreGameState(state) {
+        if (state.gameOver) {
+            return;
+        }
+        
+        this.currentRow = state.currentRow;
+        this.currentTile = state.currentTile;
+        this.guesses = state.guesses || [];
+        this.hintsUsed = state.hintsUsed || 0;
+        this.keyboardState = state.keyboardState || {};
+        
+        if (state.tiles) {
+            state.tiles.forEach((row, rowIndex) => {
+                row.forEach((tileData, colIndex) => {
+                    const tile = document.querySelector(`.wordle-tile[data-row="${rowIndex}"][data-col="${colIndex}"]`);
+                    if (tile && tileData.letter) {
+                        tile.textContent = tileData.letter;
+                        tile.classList.add('filled');
+                        if (tileData.status) {
+                            tile.classList.add(tileData.status);
+                        }
+                    }
+                });
+            });
+        }
+        
+        Object.keys(this.keyboardState).forEach(letter => {
+            const key = document.querySelector(`.key[data-key="${letter}"]`);
+            if (key) {
+                key.classList.add(this.keyboardState[letter]);
+            }
+        });
+        
+        if (this.hintsUsed >= this.maxHints) {
+            document.getElementById('hintBtn').disabled = true;
+            document.getElementById('hintBtn').style.opacity = '0.5';
+        }
+    }
+}
+
+function getStreak() {
+    return parseInt(localStorage.getItem('wordleStreak') || '0');
+}
+
+function getLastStreakDate() {
+    return localStorage.getItem('wordleLastStreakDate') || '';
+}
+
+function updateStreak() {
+    const today = new Date().toISOString().split('T')[0];
+    const lastDate = getLastStreakDate();
+    let streak = getStreak();
+    
+    if (lastDate === today) {
+        return streak;
+    }
+    
+    if (lastDate) {
+        const lastDateObj = new Date(lastDate);
+        const todayObj = new Date(today);
+        const diffTime = todayObj - lastDateObj;
+        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+        
+        if (diffDays === 1) {
+            streak++;
+        } else if (diffDays > 1) {
+            streak = 1;
+        }
+    } else {
+        streak = 1;
+    }
+    
+    localStorage.setItem('wordleStreak', streak.toString());
+    localStorage.setItem('wordleLastStreakDate', today);
+    
+    return streak;
 }
 
 function handleGlobalKeydown(e) {
@@ -690,6 +865,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const alreadyPlayed = localStorage.getItem('wordlePlayed_' + today);
         const storedWord = localStorage.getItem('wordleWord_' + today);
         const storedMessage = localStorage.getItem('wordleMessage_' + today);
+        const savedState = localStorage.getItem('wordleGameState_' + today);
         
         const wordleOverlay = document.getElementById('wordleOverlay');
         
@@ -726,10 +902,11 @@ function showWordleResultOnly(word, message) {
     
     document.querySelector('.wordle-subtitle').textContent = "Today's word was...";
     
-    resultTitle.textContent = "💕 Today's Love Word 💕";
+    const streak = getStreak();
+    resultTitle.textContent = `💕 Today's Love Word 💕`;
     resultTitle.className = '';
     resultWord.textContent = word;
-    resultMessage.textContent = message;
+    resultMessage.innerHTML = message + `<br><br>🔥 Current streak: ${streak} day${streak !== 1 ? 's' : ''}`;
     
     wordleOverlay.classList.remove('hidden');
     wordleResult.classList.add('show');
