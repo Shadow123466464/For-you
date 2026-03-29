@@ -105,7 +105,7 @@
     align-items: center;
     gap: 12px;
     background: rgba(255, 255, 255, 0.95);
-    padding: 10px 18px 10px 10px;
+    padding: 8px 16px 8px 8px;
     border-radius: 50px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     z-index: 100;
@@ -119,14 +119,24 @@
 }
 
 .profile-avatar-small {
-    width: 45px;
-    height: 45px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
     background: linear-gradient(135deg, #fff0f5 0%, #ffe4ec 100%);
+    flex-shrink: 0;
+}
+
+.profile-avatar-small .animal-avatar {
+    transform-origin: center center;
+}
+
+.profile-avatar-small .animal-avatar.mini {
+    transform: scale(0.3);
+    margin-top: -20px;
 }
 
 .profile-info {
@@ -139,7 +149,7 @@
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
     color: #4a1c2f;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
 }
 
 .profile-streak {
