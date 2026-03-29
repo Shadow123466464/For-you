@@ -11,9 +11,305 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="wordle.css">
+    <link rel="stylesheet" href="profile.css">
+    <link rel="stylesheet" href="avatar.css">
 </head>
 <body>
-    <div class="wordle-overlay" id="wordleOverlay">
+    <div class="profile-setup-overlay" id="profileSetupOverlay">
+        <div class="profile-setup-container">
+            <div class="profile-setup-header">
+                <h1>💕 Welcome 💕</h1>
+                <p>Let's create your profile</p>
+            </div>
+            
+            <div class="profile-setup-steps">
+                <div class="setup-step active" id="step1">
+                    <h2>What's your name?</h2>
+                    <div class="form-group">
+                        <label for="firstName">First Name</label>
+                        <input type="text" id="firstName" placeholder="Enter your first name" maxlength="20">
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Last Name</label>
+                        <input type="text" id="lastName" placeholder="Enter your last name" maxlength="20">
+                    </div>
+                    <button class="step-btn next-btn" id="toStep2">
+                        Next <i class="fas fa-arrow-right"></i>
+                    </button>
+                    <p class="setup-error" id="step1Error"></p>
+                </div>
+                
+                <div class="setup-step" id="step2">
+                    <h2>Choose your character</h2>
+                    
+                    <div class="avatar-preview-large" id="setupAvatarPreview"></div>
+                    
+                    <div class="customization-section">
+                        <label>Gender</label>
+                        <div class="option-buttons" id="genderOptions">
+                            <button class="option-btn selected" data-value="girl">
+                                <i class="fas fa-venus"></i> Girl
+                            </button>
+                            <button class="option-btn" data-value="boy">
+                                <i class="fas fa-mars"></i> Boy
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="customization-section">
+                        <label>Skin Tone</label>
+                        <div class="color-circles" id="skinOptions">
+                            <div class="color-circle selected" data-value="skin1" style="background: #FFDBAC;"></div>
+                            <div class="color-circle" data-value="skin2" style="background: #F5CBA7;"></div>
+                            <div class="color-circle" data-value="skin3" style="background: #E0AC69;"></div>
+                            <div class="color-circle" data-value="skin4" style="background: #C68642;"></div>
+                            <div class="color-circle" data-value="skin5" style="background: #8D5524;"></div>
+                            <div class="color-circle" data-value="skin6" style="background: #5C3A21;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="step-buttons">
+                        <button class="step-btn back-btn" id="backToStep1">
+                            <i class="fas fa-arrow-left"></i> Back
+                        </button>
+                        <button class="step-btn next-btn" id="toStep3">
+                            Next <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="setup-step" id="step3">
+                    <h2>Style your hair</h2>
+                    
+                    <div class="avatar-preview-large" id="setupAvatarPreview2"></div>
+                    
+                    <div class="customization-section">
+                        <label>Hair Style</label>
+                        <div class="option-grid" id="hairStyleOptions">
+                            <div class="option-card selected" data-value="short" data-gender="both">
+                                <div class="hair-icon short"></div>
+                                <span>Short</span>
+                            </div>
+                            <div class="option-card" data-value="medium" data-gender="both">
+                                <div class="hair-icon medium"></div>
+                                <span>Medium</span>
+                            </div>
+                            <div class="option-card" data-value="long" data-gender="girl">
+                                <div class="hair-icon long"></div>
+                                <span>Long</span>
+                            </div>
+                            <div class="option-card" data-value="curly" data-gender="both">
+                                <div class="hair-icon curly"></div>
+                                <span>Curly</span>
+                            </div>
+                            <div class="option-card" data-value="spiky" data-gender="boy">
+                                <div class="hair-icon spiky"></div>
+                                <span>Spiky</span>
+                            </div>
+                            <div class="option-card" data-value="buzz" data-gender="boy">
+                                <div class="hair-icon buzz"></div>
+                                <span>Buzz</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="customization-section">
+                        <label>Hair Color</label>
+                        <div class="color-circles" id="hairColorOptions">
+                            <div class="color-circle selected" data-value="black" style="background: #1a1a1a;"></div>
+                            <div class="color-circle" data-value="brown" style="background: #5c3d2e;"></div>
+                            <div class="color-circle" data-value="darkbrown" style="background: #3d2314;"></div>
+                            <div class="color-circle" data-value="blonde" style="background: #d4a853;"></div>
+                            <div class="color-circle" data-value="ginger" style="background: #b55a30;"></div>
+                            <div class="color-circle" data-value="red" style="background: #8b2942;"></div>
+                            <div class="color-circle" data-value="pink" style="background: #e75480;"></div>
+                            <div class="color-circle" data-value="blue" style="background: #4a90d9;"></div>
+                            <div class="color-circle" data-value="purple" style="background: #7b4fa0;"></div>
+                            <div class="color-circle" data-value="gray" style="background: #888888;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="step-buttons">
+                        <button class="step-btn back-btn" id="backToStep2">
+                            <i class="fas fa-arrow-left"></i> Back
+                        </button>
+                        <button class="step-btn next-btn" id="toStep4">
+                            Next <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="setup-step" id="step4">
+                    <h2>Choose your outfit</h2>
+                    
+                    <div class="avatar-preview-large" id="setupAvatarPreview3"></div>
+                    
+                    <div class="customization-section">
+                        <label>Outfit Style</label>
+                        <div class="option-grid" id="outfitStyleOptions">
+                            <div class="option-card selected" data-value="casual">
+                                <div class="outfit-icon casual"></div>
+                                <span>Casual</span>
+                            </div>
+                            <div class="option-card" data-value="formal">
+                                <div class="outfit-icon formal"></div>
+                                <span>Formal</span>
+                            </div>
+                            <div class="option-card" data-value="sporty">
+                                <div class="outfit-icon sporty"></div>
+                                <span>Sporty</span>
+                            </div>
+                            <div class="option-card" data-value="cozy">
+                                <div class="outfit-icon cozy"></div>
+                                <span>Cozy</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="customization-section">
+                        <label>Outfit Color</label>
+                        <div class="color-circles" id="outfitColorOptions">
+                            <div class="color-circle selected" data-value="pink" style="background: #ff6b81;"></div>
+                            <div class="color-circle" data-value="blue" style="background: #3b82f6;"></div>
+                            <div class="color-circle" data-value="purple" style="background: #a855f7;"></div>
+                            <div class="color-circle" data-value="green" style="background: #10b981;"></div>
+                            <div class="color-circle" data-value="yellow" style="background: #f59e0b;"></div>
+                            <div class="color-circle" data-value="red" style="background: #ef4444;"></div>
+                            <div class="color-circle" data-value="black" style="background: #1f2937;"></div>
+                            <div class="color-circle" data-value="white" style="background: #f3f4f6; border: 2px solid #d1d5db;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="step-buttons">
+                        <button class="step-btn back-btn" id="backToStep3">
+                            <i class="fas fa-arrow-left"></i> Back
+                        </button>
+                        <button class="step-btn next-btn" id="toStep5">
+                            Next <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="setup-step" id="step5">
+                    <h2>Add accessories</h2>
+                    
+                    <div class="avatar-preview-large" id="setupAvatarPreview4"></div>
+                    
+                    <div class="customization-section">
+                        <label>Glasses</label>
+                        <div class="option-grid small" id="glassesOptions">
+                            <div class="option-card selected" data-value="none">
+                                <i class="fas fa-ban"></i>
+                                <span>None</span>
+                            </div>
+                            <div class="option-card" data-value="round">
+                                <div class="glasses-icon round"></div>
+                                <span>Round</span>
+                            </div>
+                            <div class="option-card" data-value="square">
+                                <div class="glasses-icon square"></div>
+                                <span>Square</span>
+                            </div>
+                            <div class="option-card" data-value="sunglasses">
+                                <div class="glasses-icon sunglasses"></div>
+                                <span>Sunglasses</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="customization-section">
+                        <label>Head Accessory</label>
+                        <div class="option-grid small" id="headAccessoryOptions">
+                            <div class="option-card selected" data-value="none">
+                                <i class="fas fa-ban"></i>
+                                <span>None</span>
+                            </div>
+                            <div class="option-card" data-value="bow" data-gender="girl">
+                                <div class="accessory-icon bow"></div>
+                                <span>Bow</span>
+                            </div>
+                            <div class="option-card" data-value="headband" data-gender="girl">
+                                <div class="accessory-icon headband"></div>
+                                <span>Headband</span>
+                            </div>
+                            <div class="option-card" data-value="beanie" data-gender="both">
+                                <div class="accessory-icon beanie"></div>
+                                <span>Beanie</span>
+                            </div>
+                            <div class="option-card" data-value="cap" data-gender="both">
+                                <div class="accessory-icon cap"></div>
+                                <span>Cap</span>
+                            </div>
+                            <div class="option-card" data-value="crown" data-gender="both">
+                                <div class="accessory-icon crown"></div>
+                                <span>Crown</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="customization-section">
+                        <label>Face Feature</label>
+                        <div class="option-grid small" id="faceFeatureOptions">
+                            <div class="option-card selected" data-value="none">
+                                <i class="fas fa-ban"></i>
+                                <span>None</span>
+                            </div>
+                            <div class="option-card" data-value="blush">
+                                <div class="face-icon blush"></div>
+                                <span>Blush</span>
+                            </div>
+                            <div class="option-card" data-value="freckles">
+                                <div class="face-icon freckles"></div>
+                                <span>Freckles</span>
+                            </div>
+                            <div class="option-card" data-value="mole">
+                                <div class="face-icon mole"></div>
+                                <span>Beauty Mark</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="step-buttons">
+                        <button class="step-btn back-btn" id="backToStep4">
+                            <i class="fas fa-arrow-left"></i> Back
+                        </button>
+                        <button class="step-btn next-btn" id="toStep6">
+                            Next <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="setup-step" id="step6">
+                    <h2>Almost done!</h2>
+                    
+                    <div class="avatar-preview-large final" id="setupAvatarPreviewFinal"></div>
+                    
+                    <div class="customization-section">
+                        <label>App Theme Color</label>
+                        <div class="color-circles large" id="themeColorOptions">
+                            <div class="color-circle selected" data-value="#ff6b81" style="background: #ff6b81;"></div>
+                            <div class="color-circle" data-value="#a855f7" style="background: #a855f7;"></div>
+                            <div class="color-circle" data-value="#3b82f6" style="background: #3b82f6;"></div>
+                            <div class="color-circle" data-value="#10b981" style="background: #10b981;"></div>
+                            <div class="color-circle" data-value="#f59e0b" style="background: #f59e0b;"></div>
+                            <div class="color-circle" data-value="#ef4444" style="background: #ef4444;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="step-buttons">
+                        <button class="step-btn back-btn" id="backToStep5">
+                            <i class="fas fa-arrow-left"></i> Back
+                        </button>
+                        <button class="step-btn finish-btn" id="finishSetup">
+                            <i class="fas fa-heart"></i> Finish
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="wordle-overlay hidden" id="wordleOverlay">
         <div class="wordle-container">
             <div class="wordle-header">
                 <h1 class="wordle-title">💕 Love Wordle 💕</h1>
@@ -52,7 +348,19 @@
         </div>
     </div>
 
-    <div class="main-content" id="mainContent">
+    <div class="main-content" id="mainContent" style="display: none;">
+        <div class="profile-display" id="profileDisplay">
+            <div class="profile-avatar-small" id="profileAvatarSmall"></div>
+            <div class="profile-info">
+                <span class="profile-name" id="profileName"></span>
+                <span class="profile-streak" id="profileStreak">🔥 0 days</span>
+            </div>
+        </div>
+        
+        <div class="settings-button" id="settingsButton">
+            <i class="fas fa-cog"></i>
+        </div>
+        
         <div class="background-decorations">
             <div class="heart-decoration heart-1">❤️</div>
             <div class="heart-decoration heart-2">❤️</div>
@@ -81,19 +389,226 @@
         
         <div class="secret-letter-button" id="secretLetterButton">For You</div>
         
+        <div class="wordle-replay-button" id="wordleReplayButton">
+            <i class="fas fa-gamepad"></i> Play Wordle
+        </div>
+        
         <div class="secret-letter-modal" id="secretLetterModal">
             <div class="secret-letter-content">
                 <div class="secret-letter-text" id="secretLetterText"></div>
                 <button class="return-button" id="returnButton">Return</button>
             </div>
         </div>
-        <div class="wordle-replay-button" id="wordleReplayButton">
-    <i class="fas fa-gamepad"></i> Play Wordle
-        </div>
+        
         <div class="galaxy-animation"></div>
     </div>
 
+    <div class="settings-overlay" id="settingsOverlay">
+        <div class="settings-container">
+            <div class="settings-header">
+                <h2><i class="fas fa-cog"></i> Settings</h2>
+                <button class="settings-close" id="settingsClose">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="settings-content">
+                <div class="settings-tabs">
+                    <button class="settings-tab active" data-tab="profile">
+                        <i class="fas fa-user"></i> Profile
+                    </button>
+                    <button class="settings-tab" data-tab="avatar">
+                        <i class="fas fa-user-circle"></i> Avatar
+                    </button>
+                    <button class="settings-tab" data-tab="theme">
+                        <i class="fas fa-palette"></i> Theme
+                    </button>
+                    <button class="settings-tab" data-tab="stats">
+                        <i class="fas fa-chart-bar"></i> Stats
+                    </button>
+                </div>
+                
+                <div class="settings-tab-content active" id="profileTab">
+                    <div class="settings-avatar-preview" id="settingsAvatarPreview"></div>
+                    
+                    <div class="form-group">
+                        <label for="editFirstName">First Name</label>
+                        <input type="text" id="editFirstName" placeholder="Enter your first name" maxlength="20">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="editLastName">Last Name</label>
+                        <input type="text" id="editLastName" placeholder="Enter your last name" maxlength="20">
+                    </div>
+                </div>
+                
+                <div class="settings-tab-content" id="avatarTab">
+                    <div class="settings-avatar-preview" id="settingsAvatarPreview2"></div>
+                    
+                    <div class="avatar-customize-section">
+                        <div class="customize-row">
+                            <label>Gender</label>
+                            <div class="option-buttons small" id="settingsGenderOptions">
+                                <button class="option-btn" data-value="girl">Girl</button>
+                                <button class="option-btn" data-value="boy">Boy</button>
+                            </div>
+                        </div>
+                        
+                        <div class="customize-row">
+                            <label>Skin Tone</label>
+                            <div class="color-circles small" id="settingsSkinOptions">
+                                <div class="color-circle" data-value="skin1" style="background: #FFDBAC;"></div>
+                                <div class="color-circle" data-value="skin2" style="background: #F5CBA7;"></div>
+                                <div class="color-circle" data-value="skin3" style="background: #E0AC69;"></div>
+                                <div class="color-circle" data-value="skin4" style="background: #C68642;"></div>
+                                <div class="color-circle" data-value="skin5" style="background: #8D5524;"></div>
+                                <div class="color-circle" data-value="skin6" style="background: #5C3A21;"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="customize-row">
+                            <label>Hair Style</label>
+                            <div class="option-scroll" id="settingsHairStyleOptions">
+                                <div class="scroll-option" data-value="short" data-gender="both">Short</div>
+                                <div class="scroll-option" data-value="medium" data-gender="both">Medium</div>
+                                <div class="scroll-option" data-value="long" data-gender="girl">Long</div>
+                                <div class="scroll-option" data-value="curly" data-gender="both">Curly</div>
+                                <div class="scroll-option" data-value="spiky" data-gender="boy">Spiky</div>
+                                <div class="scroll-option" data-value="buzz" data-gender="boy">Buzz</div>
+                            </div>
+                        </div>
+                        
+                        <div class="customize-row">
+                            <label>Hair Color</label>
+                            <div class="color-circles small" id="settingsHairColorOptions">
+                                <div class="color-circle" data-value="black" style="background: #1a1a1a;"></div>
+                                <div class="color-circle" data-value="brown" style="background: #5c3d2e;"></div>
+                                <div class="color-circle" data-value="darkbrown" style="background: #3d2314;"></div>
+                                <div class="color-circle" data-value="blonde" style="background: #d4a853;"></div>
+                                <div class="color-circle" data-value="ginger" style="background: #b55a30;"></div>
+                                <div class="color-circle" data-value="red" style="background: #8b2942;"></div>
+                                <div class="color-circle" data-value="pink" style="background: #e75480;"></div>
+                                <div class="color-circle" data-value="blue" style="background: #4a90d9;"></div>
+                                <div class="color-circle" data-value="purple" style="background: #7b4fa0;"></div>
+                                <div class="color-circle" data-value="gray" style="background: #888888;"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="customize-row">
+                            <label>Outfit</label>
+                            <div class="option-scroll" id="settingsOutfitOptions">
+                                <div class="scroll-option" data-value="casual">Casual</div>
+                                <div class="scroll-option" data-value="formal">Formal</div>
+                                <div class="scroll-option" data-value="sporty">Sporty</div>
+                                <div class="scroll-option" data-value="cozy">Cozy</div>
+                            </div>
+                        </div>
+                        
+                        <div class="customize-row">
+                            <label>Outfit Color</label>
+                            <div class="color-circles small" id="settingsOutfitColorOptions">
+                                <div class="color-circle" data-value="pink" style="background: #ff6b81;"></div>
+                                <div class="color-circle" data-value="blue" style="background: #3b82f6;"></div>
+                                <div class="color-circle" data-value="purple" style="background: #a855f7;"></div>
+                                <div class="color-circle" data-value="green" style="background: #10b981;"></div>
+                                <div class="color-circle" data-value="yellow" style="background: #f59e0b;"></div>
+                                <div class="color-circle" data-value="red" style="background: #ef4444;"></div>
+                                <div class="color-circle" data-value="black" style="background: #1f2937;"></div>
+                                <div class="color-circle" data-value="white" style="background: #f3f4f6;"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="customize-row">
+                            <label>Glasses</label>
+                            <div class="option-scroll" id="settingsGlassesOptions">
+                                <div class="scroll-option" data-value="none">None</div>
+                                <div class="scroll-option" data-value="round">Round</div>
+                                <div class="scroll-option" data-value="square">Square</div>
+                                <div class="scroll-option" data-value="sunglasses">Sunglasses</div>
+                            </div>
+                        </div>
+                        
+                        <div class="customize-row">
+                            <label>Head Accessory</label>
+                            <div class="option-scroll" id="settingsHeadAccessoryOptions">
+                                <div class="scroll-option" data-value="none">None</div>
+                                <div class="scroll-option" data-value="bow" data-gender="girl">Bow</div>
+                                <div class="scroll-option" data-value="headband" data-gender="girl">Headband</div>
+                                <div class="scroll-option" data-value="beanie" data-gender="both">Beanie</div>
+                                <div class="scroll-option" data-value="cap" data-gender="both">Cap</div>
+                                <div class="scroll-option" data-value="crown" data-gender="both">Crown</div>
+                            </div>
+                        </div>
+                        
+                        <div class="customize-row">
+                            <label>Face Feature</label>
+                            <div class="option-scroll" id="settingsFaceFeatureOptions">
+                                <div class="scroll-option" data-value="none">None</div>
+                                <div class="scroll-option" data-value="blush">Blush</div>
+                                <div class="scroll-option" data-value="freckles">Freckles</div>
+                                <div class="scroll-option" data-value="mole">Beauty Mark</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="settings-tab-content" id="themeTab">
+                    <div class="customization-section">
+                        <label>App Theme Color</label>
+                        <div class="color-circles large" id="settingsThemeColorOptions">
+                            <div class="color-circle" data-value="#ff6b81" style="background: #ff6b81;"></div>
+                            <div class="color-circle" data-value="#a855f7" style="background: #a855f7;"></div>
+                            <div class="color-circle" data-value="#3b82f6" style="background: #3b82f6;"></div>
+                            <div class="color-circle" data-value="#10b981" style="background: #10b981;"></div>
+                            <div class="color-circle" data-value="#f59e0b" style="background: #f59e0b;"></div>
+                            <div class="color-circle" data-value="#ef4444" style="background: #ef4444;"></div>
+                            <div class="color-circle" data-value="#8b5cf6" style="background: #8b5cf6;"></div>
+                            <div class="color-circle" data-value="#ec4899" style="background: #ec4899;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="theme-preview">
+                        <p>Theme Preview</p>
+                        <div class="theme-preview-box" id="themePreviewBox">
+                            <div class="preview-button">Button</div>
+                            <div class="preview-heart">❤️</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="settings-tab-content" id="statsTab">
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <span class="stat-value" id="statStreak">0</span>
+                            <span class="stat-label">Day Streak</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value" id="statLettersOpened">0</span>
+                            <span class="stat-label">Letters Opened</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value" id="statWordlesPlayed">0</span>
+                            <span class="stat-label">Wordles Played</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stats-info">
+                        <p><i class="fas fa-calendar"></i> Member since: <span id="memberSince">-</span></p>
+                    </div>
+                </div>
+                
+                <button class="settings-save-btn" id="saveSettingsBtn">
+                    <i class="fas fa-check"></i> Save Changes
+                </button>
+                
+                <p class="settings-error" id="settingsError"></p>
+            </div>
+        </div>
+    </div>
+
     <script src="data.js"></script>
+    <script src="avatar.js"></script>
+    <script src="profile.js"></script>
     <script src="wordle.js"></script>
     <script src="script.js"></script>
 </body>
