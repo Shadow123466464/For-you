@@ -13,6 +13,7 @@ const wordHints = {
     "TRUST": "Firm belief in the reliability of someone",
     "LONGING": "A yearning desire for something or someone",
     "JOY": "A feeling of great pleasure and happiness",
+    "SPIRIT": "The origin or the existance of a person",
     "HOPE": "A feeling of expectation for something positive",
     "SERENITY": "The state of being calm and peaceful",
     "BELONGING": "The feeling of being accepted and fitting in",
@@ -26,7 +27,6 @@ const wordHints = {
     "ETERNITY": "Infinite or unending time",
     "SACRIFICE": "Giving up something precious for another",
     "FIDELITY": "Faithfulness to a person or commitment",
-    "SPIRIT": "The origin or the existance of a person",
     "PASSIONATE": "Showing or caused by strong feelings",
     "TENDER": "Showing gentleness and concern",
     "DEVOTED": "Very loving and loyal",
@@ -353,6 +353,7 @@ class LoveWordle {
         this.maxHints = 3;
         this.keyboardState = {};
         
+        // Store reference to this game
         currentWordleGame = this;
         
         this.init(resumeState);
@@ -367,9 +368,11 @@ class LoveWordle {
         this.resetHintButton();
         this.displayStreak();
         
+        // Resume game state if exists
         if (resumeState) {
             this.restoreGameState(resumeState);
         } else {
+            // Check for saved state
             const savedState = this.loadGameState();
             if (savedState && !savedState.gameOver) {
                 this.restoreGameState(savedState);
@@ -704,12 +707,15 @@ class LoveWordle {
         this.resultMessage.textContent = this.currentMessage;
         this.wordleResult.classList.add('show');
         
+        // Update streak
         updateStreak();
         this.displayStreak();
         
+        // Mark as completed
         const today = new Date().toISOString().split('T')[0];
         localStorage.setItem('wordlePlayed_' + today, 'true');
         
+        // Update profile stats
         if (typeof ProfileManager !== 'undefined') {
             ProfileManager.incrementWordlesPlayed();
             ProfileManager.updateStreakDisplay();
@@ -717,17 +723,20 @@ class LoveWordle {
     }
     
     pauseGame() {
+        // Save current state and close
         this.saveGameState();
         
+        // Hide wordle overlay
         this.wordleOverlay.classList.add('hidden');
         
+        // Show main content
         document.getElementById('mainContent').style.display = 'block';
     }
     
     saveGameState() {
         const today = new Date().toISOString().split('T')[0];
         
-          Get current tile values
+        // Get current tile values
         const tiles = [];
         for (let i = 0; i <= this.currentRow; i++) {
             const rowTiles = [];
@@ -784,7 +793,7 @@ class LoveWordle {
         this.hintsUsed = state.hintsUsed || 0;
         this.keyboardState = state.keyboardState || {};
         
-          Restore tiles
+        // Restore tiles
         if (state.tiles) {
             state.tiles.forEach((row, rowIndex) => {
                 row.forEach((tileData, colIndex) => {
@@ -800,7 +809,7 @@ class LoveWordle {
             });
         }
         
-          Restore keyboard colors
+        // Restore keyboard colors
         Object.keys(this.keyboardState).forEach(letter => {
             const key = document.querySelector(`.key[data-key="${letter}"]`);
             if (key) {
@@ -808,7 +817,7 @@ class LoveWordle {
             }
         });
         
-          Restore hint button state
+        // Restore hint button state
         if (this.hintsUsed >= this.maxHints) {
             const hintBtn = document.getElementById('hintBtn');
             if (hintBtn) {
@@ -819,7 +828,7 @@ class LoveWordle {
     }
 }
 
-  Streak functions
+// Streak functions
 function getStreak() {
     return parseInt(localStorage.getItem('wordleStreak') || '0');
 }
@@ -858,14 +867,14 @@ function updateStreak() {
     return streak;
 }
 
-  Global keyboard handler
+// Global keyboard handler
 function handleGlobalKeydown(e) {
     const wordleOverlay = document.getElementById('wordleOverlay');
     
     if (!wordleOverlay || wordleOverlay.classList.contains('hidden')) return;
     if (!currentWordleGame || currentWordleGame.gameOver) return;
     
-      Check if result is showing
+    // Check if result is showing
     const wordleResult = document.getElementById('wordleResult');
     if (wordleResult && wordleResult.classList.contains('show')) return;
     
@@ -882,13 +891,13 @@ function handleGlobalKeydown(e) {
     }
 }
 
-  Initialize Wordle game when DOM is loaded
+// Initialize Wordle game when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
     
-      Add global keyboard listener
+    // Add global keyboard listener
     document.addEventListener('keydown', handleGlobalKeydown);
     
-      Continue button - Always attach this listener
+    // Continue button - Always attach this listener
     const continueBtn = document.getElementById('continueBtn');
     if (continueBtn) {
         continueBtn.addEventListener('click', function() {
@@ -919,7 +928,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const today = new Date().toISOString().split('T')[0];
             localStorage.setItem('wordlePlayed_' + today, 'true');
             
-              Update profile stats
+            // Update profile stats
             if (typeof ProfileManager !== 'undefined') {
                 ProfileManager.incrementWordlesPlayed();
                 ProfileManager.updateStreakDisplay();
@@ -927,7 +936,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-      Wordle Replay Button Handler
+    // Wordle Replay Button Handler
     const replayBtn = document.getElementById('wordleReplayButton');
     if (replayBtn) {
         replayBtn.addEventListener('click', function() {
