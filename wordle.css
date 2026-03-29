@@ -1,4 +1,3 @@
-/* Wordle Game Styles */
 
 .wordle-overlay {
     position: fixed;
@@ -365,7 +364,6 @@
     border: 2px solid #ffb6c1;
 }
 
-/* Shake animation for wrong guess */
 @keyframes shake {
     0%, 100% {
         transform: translateX(0);
@@ -382,7 +380,6 @@
     animation: shake 0.5s ease;
 }
 
-/* Responsive Design */
 @media (max-width: 500px) {
     .wordle-container {
         padding: 20px;
