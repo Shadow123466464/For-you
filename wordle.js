@@ -26,6 +26,7 @@ const wordHints = {
     "ETERNITY": "Infinite or unending time",
     "SACRIFICE": "Giving up something precious for another",
     "FIDELITY": "Faithfulness to a person or commitment",
+    "SPIRIT": "The origin or the existance of a person",
     "PASSIONATE": "Showing or caused by strong feelings",
     "TENDER": "Showing gentleness and concern",
     "DEVOTED": "Very loving and loyal",
