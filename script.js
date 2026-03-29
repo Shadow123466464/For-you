@@ -171,8 +171,7 @@ For the reason i did that for because sometimes life can be hard and we can feel
 how much you meant because in that time i was alone without you i lost myself, i lost the joy of everything like the life became tasteless without you being around to give it colors and brighten my day
 with your presence, your soft smile that i could melt whenever i saw it, the way you explain things that made me pretend to be stupid just for you to explain it to me, your style that i always wait to see the new outfits, the way you act like everything is fine even when life is harsh on you, your eyes that shine like gold even now that i dont really remember a lot about them but they are so beautiful, your curly hair that i really wanted you to accept it and see it the way i always does so pretty to a point i cant explain it (even your straight hair is pretty i remember always wanting to play it even though you get so angry at me for doing that),
 the way i can feel free to talk about anything with you it was my first time in this life i felt like someone accepted me and i could be weird with and because i was never good with words i made this hoping one day you could forgive me for being the worst thing that happened to you and know how much i care about you to create this.
-            For you and only you 
-Yīnwèi nǐ shì nà zhǒng zhídé bèi xiě jìn shū lǐ de nǚhái. 💕`;
+            For you and only you `;
 
             textContainer.classList.add('typewriter-container');
             textContainer.appendChild(cursor);
