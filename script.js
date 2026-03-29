@@ -15,6 +15,8 @@ function initMainContent() {
     }
 
     function createEnvelopes() {
+        if (!envelopesContainer) return;
+        
         const now = new Date();
         const month = now.getMonth();
         const year = now.getFullYear();
@@ -72,7 +74,7 @@ function initMainContent() {
             }
         } else {
             const randomIndex = Math.floor(Math.random() * allLoveWords.length);
-            const selectedLetter = allLoveWords[randomIndex];
+            const selectedLetter = { ...allLoveWords[randomIndex] };
             const randomBgIndex = Math.floor(Math.random() * backgrounds.length);
             selectedLetter.bg = backgrounds[randomBgIndex];
 
@@ -88,6 +90,8 @@ function initMainContent() {
     }
 
     function openLetter(letter) {
+        if (!letter || !letter.bg) return;
+        
         body.style.backgroundImage = letter.bg.url;
         letterContent.innerHTML = `
             <h2>A special message for you</h2>
@@ -95,18 +99,29 @@ function initMainContent() {
             <p>${letter.message}</p>
         `;
         modal.style.display = 'flex';
+        
+        if (typeof ProfileManager !== 'undefined') {
+            ProfileManager.incrementLettersOpened();
+        }
     }
 
-    document.getElementById('closeModal').addEventListener('click', () => {
-        modal.style.display = 'none';
-        body.style.backgroundImage = 'linear-gradient(135deg, #fff8f8 0%, #fff0f5 100%)';
-        if (currentOpenEnvelope) {
-            currentOpenEnvelope.classList.remove('open');
-            currentOpenEnvelope = null;
-        }
-    });
+    const closeModalBtn = document.getElementById('closeModal');
+    if (closeModalBtn) {
+        closeModalBtn.addEventListener('click', () => {
+            modal.style.display = 'none';
+            body.style.backgroundImage = 'linear-gradient(135deg, #fff8f8 0%, #fff0f5 100%)';
+            if (currentOpenEnvelope) {
+                currentOpenEnvelope.classList.remove('open');
+                currentOpenEnvelope = null;
+            }
+        });
+    }
 
     function createGalaxyAnimation() {
+        if (!galaxyAnimation) return;
+        
+        galaxyAnimation.innerHTML = '';
+        
         for (let i = 0; i < 100; i++) {
             const star = document.createElement('div');
             star.className = 'star';
@@ -114,6 +129,7 @@ function initMainContent() {
             star.style.left = `${Math.random() * 100}vw`;
             star.style.width = `${Math.random() * 2}px`;
             star.style.height = star.style.width;
+            star.style.setProperty('--duration', `${Math.random() * 3 + 2}s`);
             star.style.animationDuration = `${Math.random() * 3 + 2}s`;
             galaxyAnimation.appendChild(star);
         }
@@ -124,25 +140,30 @@ function initMainContent() {
             shootingStar.style.top = `${Math.random() * 50}vh`;
             shootingStar.style.left = `${Math.random() * 100}vw`;
             shootingStar.style.width = `${Math.random() * 100 + 50}px`;
+            shootingStar.style.setProperty('--duration', `${Math.random() * 5 + 3}s`);
             shootingStar.style.animationDuration = `${Math.random() * 5 + 3}s`;
             shootingStar.style.animationDelay = `${Math.random() * 5}s`;
             galaxyAnimation.appendChild(shootingStar);
         }
     }
 
-    document.getElementById('secretLetterButton').addEventListener('click', function() {
-        const modal = document.getElementById('secretLetterModal');
-        const textContainer = document.getElementById('secretLetterText');
+    const secretLetterButton = document.getElementById('secretLetterButton');
+    if (secretLetterButton) {
+        secretLetterButton.addEventListener('click', function() {
+            const secretModal = document.getElementById('secretLetterModal');
+            const textContainer = document.getElementById('secretLetterText');
 
-        textContainer.innerHTML = '';
-        textContainer.classList.remove('typewriter-container');
+            if (!secretModal || !textContainer) return;
 
-        modal.style.display = 'flex';
+            textContainer.innerHTML = '';
+            textContainer.classList.remove('typewriter-container');
 
-        const cursor = document.createElement('span');
-        cursor.className = 'typewriter-cursor';
+            secretModal.style.display = 'flex';
 
-        const secretLetterContent = `This Page is created by Baheeddine Dahen to honor the one girl he loved more than anything but couldn't be with Azza.
+            const cursor = document.createElement('span');
+            cursor.className = 'typewriter-cursor';
+
+            const secretLetterContent = `This Page is created by Baheeddine Dahen to honor the one girl he loved more than anything but couldn't be with Azza.
 In this message i want to explain the idea of this creation it's letters and there is a fonction that allows the number of the envelopes to be the same as the current month,
 everytime you refresh the letters changes along with the special background every letter can have one of the special effects randomly
 also there is wordle game included try and guess the word of the sentnce selected randomly everyday from the ones already existing (it incldes a streak and you can skip it and play it an other time if you want to just see the messages). Everytime you refresh or open the page it appears it's a daily selection.
@@ -153,28 +174,57 @@ the way i can feel free to talk about anything with you it was my first time in 
             For you and only you 
 Yīnwèi nǐ shì nà zhǒng zhídé bèi xiě jìn shū lǐ de nǚhái. 💕`;
 
-        textContainer.classList.add('typewriter-container');
-        textContainer.appendChild(cursor);
+            textContainer.classList.add('typewriter-container');
+            textContainer.appendChild(cursor);
 
-        let i = 0;
-        const typingInterval = setInterval(function() {
-            if (i < secretLetterContent.length) {
-                if (secretLetterContent.charAt(i) === '\n') {
-                    cursor.insertAdjacentHTML('beforebegin', '<br>');
+            let i = 0;
+            const typingInterval = setInterval(function() {
+                if (i < secretLetterContent.length) {
+                    if (secretLetterContent.charAt(i) === '\n') {
+                        cursor.insertAdjacentHTML('beforebegin', '<br>');
+                    } else {
+                        cursor.insertAdjacentHTML('beforebegin', secretLetterContent.charAt(i));
+                    }
+                    i++;
+                    textContainer.scrollTop = textContainer.scrollHeight;
                 } else {
-                    cursor.insertAdjacentHTML('beforebegin', secretLetterContent.charAt(i));
+                    clearInterval(typingInterval);
                 }
-                i++;
-                textContainer.scrollTop = textContainer.scrollHeight;
-            } else {
-                clearInterval(typingInterval);
-            }
-        }, 50);
-    });
+            }, 50);
+        });
+    }
 
-    document.getElementById('returnButton').addEventListener('click', function() {
-        document.getElementById('secretLetterModal').style.display = 'none';
-    });
+    const returnButton = document.getElementById('returnButton');
+    if (returnButton) {
+        returnButton.addEventListener('click', function() {
+            const secretModal = document.getElementById('secretLetterModal');
+            if (secretModal) {
+                secretModal.style.display = 'none';
+            }
+        });
+    }
+
+    if (modal) {
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+                body.style.backgroundImage = 'linear-gradient(135deg, #fff8f8 0%, #fff0f5 100%)';
+                if (currentOpenEnvelope) {
+                    currentOpenEnvelope.classList.remove('open');
+                    currentOpenEnvelope = null;
+                }
+            }
+        });
+    }
+
+    const secretLetterModal = document.getElementById('secretLetterModal');
+    if (secretLetterModal) {
+        secretLetterModal.addEventListener('click', function(e) {
+            if (e.target === secretLetterModal) {
+                secretLetterModal.style.display = 'none';
+            }
+        });
+    }
 
     createEnvelopes();
     createGalaxyAnimation();
