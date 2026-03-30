@@ -411,13 +411,13 @@ function darkenColor(color, percent) {
 function checkIfAzza(firstName, lastName) {
     var first = (firstName || '').toLowerCase().trim();
     var last = (lastName || '').toLowerCase().trim();
-    return first === 'azza' || (first === 'azza' && last === 'dahen');
+    return first === 'azza' && last === 'chouikh';
 }
 
 function isChangingToAzza(oldFirst, oldLast, newFirst, newLast) {
     var wasAzza = checkIfAzza(oldFirst, oldLast);
-    var isAzza = checkIfAzza(newFirst, newLast);
-    return !wasAzza && isAzza;
+    var isAzzaNow = checkIfAzza(newFirst, newLast);
+    return !wasAzza && isAzzaNow;
 }
 
 function showSpecialAzzaPage(avatarConfig) {
