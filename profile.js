@@ -44,7 +44,22 @@ var ProfileManager = {
             }
             this.applyThemeColor(this.themeColor);
             this.syncStreak();
-            this.showMainContent();
+
+            var justCreated = localStorage.getItem('justCreatedProfile');
+            if (justCreated === 'true') {
+                localStorage.removeItem('justCreatedProfile');
+                this.hideSetupOverlay();
+                if (typeof WordleGame !== 'undefined' && WordleGame && typeof WordleGame.show === 'function') {
+                    var mainContent = document.getElementById('mainContent');
+                    if (mainContent) mainContent.style.display = 'none';
+                    WordleGame.show();
+                } else {
+                    this.showMainContent();
+                }
+            } else {
+                this.showMainContent();
+            }
+
             this.updateProfileDisplay();
         } else {
             this.applyThemeColor(this.themeColor);
@@ -107,17 +122,17 @@ var ProfileManager = {
     showSetupOverlay: function() {
         var overlay = document.getElementById('profileSetupOverlay');
         var mainContent = document.getElementById('mainContent');
+        var wordleOverlay = document.getElementById('wordleOverlay');
         if (overlay) overlay.style.display = 'flex';
         if (mainContent) mainContent.style.display = 'none';
+        if (wordleOverlay) wordleOverlay.classList.add('hidden');
         this.renderSetupAvatar();
         this.updateGenderOptions(this.avatarConfig.gender);
     },
 
     hideSetupOverlay: function() {
         var overlay = document.getElementById('profileSetupOverlay');
-        var mainContent = document.getElementById('mainContent');
         if (overlay) overlay.style.display = 'none';
-        if (mainContent) mainContent.style.display = 'block';
     },
 
     showMainContent: function() {
@@ -320,10 +335,17 @@ var ProfileManager = {
                 };
 
                 if (checkIfAzza(firstName, lastName)) {
+                    localStorage.setItem('justCreatedProfile', 'true');
                     self.saveProfile();
                     self.hideSetupOverlay();
-                    self.showMainContent();
                     self.updateProfileDisplay();
+                    if (typeof WordleGame !== 'undefined' && WordleGame && typeof WordleGame.show === 'function') {
+                        var mainContent = document.getElementById('mainContent');
+                        if (mainContent) mainContent.style.display = 'none';
+                        WordleGame.show();
+                    } else {
+                        self.showMainContent();
+                    }
                     showSpecialAzzaPage(self.avatarConfig);
                     return;
                 }
@@ -351,10 +373,19 @@ var ProfileManager = {
         var finishSetup = document.getElementById('finishSetup');
         if (finishSetup) {
             finishSetup.addEventListener('click', function() {
+                localStorage.setItem('justCreatedProfile', 'true');
                 self.saveProfile();
                 self.hideSetupOverlay();
-                self.showMainContent();
                 self.updateProfileDisplay();
+
+                if (typeof WordleGame !== 'undefined' && WordleGame && typeof WordleGame.show === 'function') {
+                    var mainContent = document.getElementById('mainContent');
+                    if (mainContent) mainContent.style.display = 'none';
+                    WordleGame.show();
+                } else {
+                    self.showMainContent();
+                }
+
                 if (checkIfAzza(self.profile.firstName, self.profile.lastName)) {
                     showSpecialAzzaPage(self.avatarConfig);
                 }
