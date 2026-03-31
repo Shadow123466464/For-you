@@ -47,7 +47,7 @@ function renderAvatar(containerId, config, size, animate) {
     var outfitColor = outfitColors[config.outfitColor] || outfitColors.pink;
     var accessoryColor = accessoryColors[config.accessoryColor] || accessoryColors.pink;
     var innerEarColor = config.furColor === 'white' || config.furColor === 'cream' ? '#ffb6c1' : '#ffcccb';
-    
+
     var sizeClass = '';
     if (size === 'mini') sizeClass = 'mini';
     else if (size === 'small') sizeClass = 'small';
@@ -96,30 +96,31 @@ function renderAvatar(containerId, config, size, animate) {
 
     var bodyHTML = generateBody(config.outfitStyle, outfitColor, furColor);
 
-    avatar.innerHTML = '<div class="animal-head-container">' +
-        maneHTML +
-        earsHTML +
-        accessoryHTML +
-        '<div class="animal-face" style="background: ' + faceColor + '">' +
-        (config.animalType === 'panda' ? specialFeatures : '') +
-        muzzleHTML +
-        '<div class="animal-eyes-container">' +
-        '<div class="animal-eye"><div class="animal-eye-pupil"></div><div class="animal-eye-lid" style="background: ' + faceColor + '"></div></div>' +
-        '<div class="animal-eye"><div class="animal-eye-pupil"></div><div class="animal-eye-lid" style="background: ' + faceColor + '"></div></div>' +
-        '</div>' +
-        eyelashesHTML +
-        '<div class="animal-heart-eyes"><span class="heart">❤️</span><span class="heart">❤️</span></div>' +
-        '<div class="animal-sparkle-eyes"><span class="sparkle">✨</span><span class="sparkle">✨</span></div>' +
-        '<div class="animal-nose ' + noseClass + '"></div>' +
-        '<div class="animal-mouth-container"><div class="animal-mouth smile"></div></div>' +
-        ((config.animalType === 'cat' || config.animalType === 'fox') ? specialFeatures : '') +
-        cheekHTML +
-        glassesHTML +
-        '</div>' +
+    avatar.innerHTML =
+        '<div class="animal-head-container">' +
+            maneHTML +
+            earsHTML +
+            accessoryHTML +
+            '<div class="animal-face" style="background:' + faceColor + '">' +
+                (config.animalType === 'panda' ? specialFeatures : '') +
+                muzzleHTML +
+                '<div class="animal-eyes-container">' +
+                    '<div class="animal-eye"><div class="animal-eye-pupil"></div><div class="animal-eye-lid" style="background:' + faceColor + '"></div></div>' +
+                    '<div class="animal-eye"><div class="animal-eye-pupil"></div><div class="animal-eye-lid" style="background:' + faceColor + '"></div></div>' +
+                '</div>' +
+                eyelashesHTML +
+                '<div class="animal-heart-eyes"><span class="heart">❤️</span><span class="heart">❤️</span></div>' +
+                '<div class="animal-sparkle-eyes"><span class="sparkle">✨</span><span class="sparkle">✨</span></div>' +
+                '<div class="animal-nose ' + noseClass + '"></div>' +
+                '<div class="animal-mouth-container"><div class="animal-mouth smile"></div></div>' +
+                ((config.animalType === 'cat' || config.animalType === 'fox') ? specialFeatures : '') +
+                cheekHTML +
+                glassesHTML +
+            '</div>' +
         '</div>' +
         '<div class="animal-body-container">' +
-        '<div class="animal-neck" style="background: ' + furColor + '"></div>' +
-        bodyHTML +
+            '<div class="animal-neck" style="background:' + furColor + '"></div>' +
+            bodyHTML +
         '</div>';
 
     container.innerHTML = '';
@@ -133,74 +134,82 @@ function renderAvatar(containerId, config, size, animate) {
 function generateEars(animalType, furColor, innerEarColor) {
     var darkFur = darkenColor(furColor, 20);
     var lightFur = lightenColor(furColor, 30);
-    
+
     switch (animalType) {
         case 'cat':
             return '<div class="animal-ears cat">' +
-                '<div class="ear left" style="background: ' + furColor + '"><div class="ear-inner" style="background: ' + innerEarColor + '"></div></div>' +
-                '<div class="ear right" style="background: ' + furColor + '"><div class="ear-inner" style="background: ' + innerEarColor + '"></div></div>' +
-                '</div>';
+                '<div class="ear left" style="background:' + furColor + '"><div class="ear-inner" style="background:' + innerEarColor + '"></div></div>' +
+                '<div class="ear right" style="background:' + furColor + '"><div class="ear-inner" style="background:' + innerEarColor + '"></div></div>' +
+            '</div>';
         case 'dog':
             return '<div class="animal-ears dog">' +
-                '<div class="ear left" style="background: ' + darkFur + '"></div>' +
-                '<div class="ear right" style="background: ' + darkFur + '"></div>' +
-                '</div>';
+                '<div class="ear left" style="background:' + darkFur + '"></div>' +
+                '<div class="ear right" style="background:' + darkFur + '"></div>' +
+            '</div>';
         case 'rabbit':
             return '<div class="animal-ears rabbit">' +
-                '<div class="ear left" style="background: ' + furColor + '"><div class="ear-inner" style="background: ' + innerEarColor + '"></div></div>' +
-                '<div class="ear right" style="background: ' + furColor + '"><div class="ear-inner" style="background: ' + innerEarColor + '"></div></div>' +
-                '</div>';
+                '<div class="ear left" style="background:' + furColor + '"><div class="ear-inner" style="background:' + innerEarColor + '"></div></div>' +
+                '<div class="ear right" style="background:' + furColor + '"><div class="ear-inner" style="background:' + innerEarColor + '"></div></div>' +
+            '</div>';
         case 'bear':
             return '<div class="animal-ears bear">' +
-                '<div class="ear left" style="background: ' + furColor + '"><div class="ear-inner" style="background: ' + darkFur + '"></div></div>' +
-                '<div class="ear right" style="background: ' + furColor + '"><div class="ear-inner" style="background: ' + darkFur + '"></div></div>' +
-                '</div>';
+                '<div class="ear left" style="background:' + furColor + '"><div class="ear-inner" style="background:' + darkFur + '"></div></div>' +
+                '<div class="ear right" style="background:' + furColor + '"><div class="ear-inner" style="background:' + darkFur + '"></div></div>' +
+            '</div>';
         case 'fox':
             return '<div class="animal-ears fox">' +
-                '<div class="ear left" style="background: ' + furColor + '"><div class="ear-inner" style="background: ' + lightFur + '"></div><div class="ear-tip" style="background: #2d2d2d"></div></div>' +
-                '<div class="ear right" style="background: ' + furColor + '"><div class="ear-inner" style="background: ' + lightFur + '"></div><div class="ear-tip" style="background: #2d2d2d"></div></div>' +
-                '</div>';
+                '<div class="ear left" style="background:' + furColor + '"><div class="ear-inner" style="background:' + lightFur + '"></div><div class="ear-tip" style="background:#2d2d2d"></div></div>' +
+                '<div class="ear right" style="background:' + furColor + '"><div class="ear-inner" style="background:' + lightFur + '"></div><div class="ear-tip" style="background:#2d2d2d"></div></div>' +
+            '</div>';
         case 'panda':
             return '<div class="animal-ears panda"><div class="ear left"></div><div class="ear right"></div></div>';
         case 'lion':
             return '<div class="animal-ears lion">' +
-                '<div class="ear left" style="background: ' + furColor + '"><div class="ear-inner" style="background: ' + darkFur + '"></div></div>' +
-                '<div class="ear right" style="background: ' + furColor + '"><div class="ear-inner" style="background: ' + darkFur + '"></div></div>' +
-                '</div>';
+                '<div class="ear left" style="background:' + furColor + '"><div class="ear-inner" style="background:' + darkFur + '"></div></div>' +
+                '<div class="ear right" style="background:' + furColor + '"><div class="ear-inner" style="background:' + darkFur + '"></div></div>' +
+            '</div>';
         case 'wolf':
             return '<div class="animal-ears wolf">' +
-                '<div class="ear left" style="background: ' + furColor + '"><div class="ear-inner" style="background: ' + darkFur + '"></div></div>' +
-                '<div class="ear right" style="background: ' + furColor + '"><div class="ear-inner" style="background: ' + darkFur + '"></div></div>' +
-                '</div>';
+                '<div class="ear left" style="background:' + furColor + '"><div class="ear-inner" style="background:' + darkFur + '"></div></div>' +
+                '<div class="ear right" style="background:' + furColor + '"><div class="ear-inner" style="background:' + darkFur + '"></div></div>' +
+            '</div>';
+        case 'capybara':
+            return '<div class="animal-ears capybara">' +
+                '<div class="ear left" style="background:' + furColor + '"><div class="ear-inner" style="background:' + darkFur + '"></div></div>' +
+                '<div class="ear right" style="background:' + furColor + '"><div class="ear-inner" style="background:' + darkFur + '"></div></div>' +
+            '</div>';
         default:
             return '<div class="animal-ears cat">' +
-                '<div class="ear left" style="background: ' + furColor + '"><div class="ear-inner" style="background: ' + innerEarColor + '"></div></div>' +
-                '<div class="ear right" style="background: ' + furColor + '"><div class="ear-inner" style="background: ' + innerEarColor + '"></div></div>' +
-                '</div>';
+                '<div class="ear left" style="background:' + furColor + '"><div class="ear-inner" style="background:' + innerEarColor + '"></div></div>' +
+                '<div class="ear right" style="background:' + furColor + '"><div class="ear-inner" style="background:' + innerEarColor + '"></div></div>' +
+            '</div>';
     }
 }
 
 function generateMuzzle(animalType, furColor) {
     var lightFur = lightenColor(furColor, 30);
-    var muzzleClass = animalType === 'rabbit' || animalType === 'bear' || animalType === 'panda' || animalType === 'lion' ? ' ' + animalType : '';
+    var muzzleClass = '';
+    if (animalType === 'rabbit' || animalType === 'bear' || animalType === 'panda' || animalType === 'lion' || animalType === 'capybara') {
+        muzzleClass = ' ' + animalType;
+    }
     var muzzleColor = animalType === 'panda' ? '#f5f5f5' : lightFur;
-    return '<div class="face-muzzle' + muzzleClass + '" style="background: ' + muzzleColor + '"></div>';
+    return '<div class="face-muzzle' + muzzleClass + '" style="background:' + muzzleColor + '"></div>';
 }
 
 function generateSpecialFeatures(animalType, furColor) {
     var darkFur = darkenColor(furColor, 20);
-    
+
     switch (animalType) {
         case 'cat':
         case 'fox':
             return '<div class="animal-whiskers">' +
                 '<div class="whisker-group left"><div class="whisker"></div><div class="whisker"></div><div class="whisker"></div></div>' +
                 '<div class="whisker-group right"><div class="whisker"></div><div class="whisker"></div><div class="whisker"></div></div>' +
-                '</div>';
+            '</div>';
         case 'panda':
             return '<div class="panda-eye-patches"><div class="eye-patch left"></div><div class="eye-patch right"></div></div>';
         case 'lion':
-            return '<div class="lion-mane" style="background: ' + darkFur + '"></div>';
+            return '<div class="lion-mane" style="background:' + darkFur + '"></div>';
         default:
             return '';
     }
@@ -217,7 +226,7 @@ function generateCheeks(cheekStyle, animalType) {
                 return '<div class="animal-whiskers">' +
                     '<div class="whisker-group left"><div class="whisker"></div><div class="whisker"></div><div class="whisker"></div></div>' +
                     '<div class="whisker-group right"><div class="whisker"></div><div class="whisker"></div><div class="whisker"></div></div>' +
-                    '</div>';
+                '</div>';
             }
             return '';
         default:
@@ -227,13 +236,10 @@ function generateCheeks(cheekStyle, animalType) {
 
 function generateAccessory(accessory, color, gender) {
     if (!accessory || accessory === 'none') return '';
-    
-    var exclusiveAccessories = ['helmet', 'witch-hat', 'pirate-hat', 'wizard-hat', 'fairy-wings-head'];
-    var isExclusive = exclusiveAccessories.indexOf(accessory) !== -1;
-    
+
     switch (accessory) {
         case 'bow':
-            return '<div class="animal-head-accessory bow" style="--accessory-color: ' + color + '"></div>';
+            return '<div class="animal-head-accessory bow" style="--accessory-color:' + color + '"></div>';
         case 'flower':
             return '<div class="animal-head-accessory flower">🌸</div>';
         case 'crown':
@@ -241,17 +247,17 @@ function generateAccessory(accessory, color, gender) {
         case 'tiara':
             return '<div class="animal-head-accessory tiara"></div>';
         case 'hat':
-            return '<div class="animal-head-accessory hat" style="--accessory-color: ' + color + '"></div>';
+            return '<div class="animal-head-accessory hat" style="--accessory-color:' + color + '"></div>';
         case 'cap':
-            return '<div class="animal-head-accessory cap" style="--accessory-color: ' + color + '"></div>';
+            return '<div class="animal-head-accessory cap" style="--accessory-color:' + color + '"></div>';
         case 'beanie':
-            return '<div class="animal-head-accessory beanie" style="--accessory-color: ' + color + '"></div>';
+            return '<div class="animal-head-accessory beanie" style="--accessory-color:' + color + '"></div>';
         case 'headband':
-            return '<div class="animal-head-accessory headband" style="--accessory-color: ' + color + '"></div>';
+            return '<div class="animal-head-accessory headband" style="--accessory-color:' + color + '"></div>';
         case 'bunny-ears':
-            return '<div class="animal-head-accessory bunny-ears" style="--accessory-color: ' + color + '"></div>';
+            return '<div class="animal-head-accessory bunny-ears" style="--accessory-color:' + color + '"></div>';
         case 'cat-ears':
-            return '<div class="animal-head-accessory cat-ears" style="--accessory-color: ' + color + '"></div>';
+            return '<div class="animal-head-accessory cat-ears" style="--accessory-color:' + color + '"></div>';
         case 'horns':
             return '<div class="animal-head-accessory horns"></div>';
         case 'halo':
@@ -260,14 +266,12 @@ function generateAccessory(accessory, color, gender) {
             return '<div class="animal-head-accessory helmet"></div>';
         case 'witch-hat':
             return '<div class="animal-head-accessory witch-hat"></div>';
-        case 'pirate-hat':
-            return '<div class="animal-head-accessory pirate-hat"></div>';
         case 'wizard-hat':
             return '<div class="animal-head-accessory wizard-hat"></div>';
         case 'santa-hat':
             return '<div class="animal-head-accessory santa-hat"></div>';
         case 'party-hat':
-            return '<div class="animal-head-accessory party-hat" style="--accessory-color: ' + color + '"></div>';
+            return '<div class="animal-head-accessory party-hat" style="--accessory-color:' + color + '"></div>';
         default:
             return '';
     }
@@ -276,86 +280,69 @@ function generateAccessory(accessory, color, gender) {
 function generateBody(outfitStyle, outfitColor, furColor) {
     var lighterColor = lightenColor(outfitColor, 15);
     var darkerColor = darkenColor(outfitColor, 15);
-    
-    var exclusiveOutfits = ['knight', 'princess', 'pirate', 'wizard', 'fairy', 'santa', 'vampire', 'maid', 'butler'];
-    var isExclusive = exclusiveOutfits.indexOf(outfitStyle) !== -1;
-    
+
     switch (outfitStyle) {
         case 'casual':
-            return '<div class="animal-body casual" style="background: linear-gradient(135deg, ' + outfitColor + ' 0%, ' + lighterColor + ' 100%)"></div>';
+            return '<div class="animal-body casual" style="background:linear-gradient(135deg,' + outfitColor + ' 0%,' + lighterColor + ' 100%)"></div>';
         case 'formal':
-            return '<div class="animal-body formal" style="background: linear-gradient(135deg, ' + outfitColor + ' 0%, ' + lighterColor + ' 100%)">' +
-                '<div class="formal-collar"></div><div class="formal-tie" style="background: ' + darkerColor + '"></div></div>';
+            return '<div class="animal-body formal" style="background:linear-gradient(135deg,' + outfitColor + ' 0%,' + lighterColor + ' 100%)">' +
+                '<div class="formal-collar"></div><div class="formal-tie" style="background:' + darkerColor + '"></div></div>';
         case 'sporty':
-            return '<div class="animal-body sporty" style="background: linear-gradient(135deg, ' + outfitColor + ' 0%, ' + lighterColor + ' 100%)">' +
-                '<div class="sporty-stripe" style="background: rgba(255,255,255,0.5)"></div></div>';
+            return '<div class="animal-body sporty" style="background:linear-gradient(135deg,' + outfitColor + ' 0%,' + lighterColor + ' 100%)">' +
+                '<div class="sporty-stripe" style="background:rgba(255,255,255,0.5)"></div></div>';
         case 'cozy':
-            return '<div class="animal-body cozy" style="background: linear-gradient(135deg, ' + outfitColor + ' 0%, ' + lighterColor + ' 100%)">' +
-                '<div class="cozy-collar" style="background: ' + darkerColor + '"></div></div>';
+            return '<div class="animal-body cozy" style="background:linear-gradient(135deg,' + outfitColor + ' 0%,' + lighterColor + ' 100%)">' +
+                '<div class="cozy-collar" style="background:' + darkerColor + '"></div></div>';
         case 'hoodie':
-            return '<div class="animal-body hoodie" style="background: linear-gradient(135deg, ' + outfitColor + ' 0%, ' + lighterColor + ' 100%)">' +
-                '<div class="hoodie-pocket" style="background: ' + darkerColor + '"></div>' +
-                '<div class="hoodie-strings"></div></div>';
+            return '<div class="animal-body hoodie" style="background:linear-gradient(135deg,' + outfitColor + ' 0%,' + lighterColor + ' 100%)">' +
+                '<div class="hoodie-pocket" style="background:' + darkerColor + '"></div><div class="hoodie-strings"></div></div>';
         case 'sweater':
-            return '<div class="animal-body sweater" style="background: linear-gradient(135deg, ' + outfitColor + ' 0%, ' + lighterColor + ' 100%)">' +
+            return '<div class="animal-body sweater" style="background:linear-gradient(135deg,' + outfitColor + ' 0%,' + lighterColor + ' 100%)">' +
                 '<div class="sweater-pattern"></div></div>';
         case 'dress':
-            return '<div class="animal-body dress" style="background: linear-gradient(135deg, ' + outfitColor + ' 0%, ' + lighterColor + ' 100%)">' +
-                '<div class="dress-ribbon" style="background: ' + darkerColor + '"></div></div>';
+            return '<div class="animal-body dress" style="background:linear-gradient(135deg,' + outfitColor + ' 0%,' + lighterColor + ' 100%)">' +
+                '<div class="dress-ribbon" style="background:' + darkerColor + '"></div></div>';
         case 'suit':
-            return '<div class="animal-body suit" style="background: linear-gradient(135deg, ' + outfitColor + ' 0%, ' + lighterColor + ' 100%)">' +
-                '<div class="suit-lapel"></div><div class="suit-tie"></div><div class="suit-pocket"></div></div>';
+            return '<div class="animal-body suit" style="background:linear-gradient(135deg,' + outfitColor + ' 0%,' + lighterColor + ' 100%)">' +
+                '<div class="suit-lapel"></div><div class="suit-tie"></div></div>';
         case 'summer':
-            return '<div class="animal-body summer" style="background: linear-gradient(135deg, ' + outfitColor + ' 0%, ' + lighterColor + ' 100%)">' +
+            return '<div class="animal-body summer" style="background:linear-gradient(135deg,' + outfitColor + ' 0%,' + lighterColor + ' 100%)">' +
                 '<div class="summer-pattern"></div></div>';
         case 'winter':
-            return '<div class="animal-body winter" style="background: linear-gradient(135deg, ' + outfitColor + ' 0%, ' + lighterColor + ' 100%)">' +
+            return '<div class="animal-body winter" style="background:linear-gradient(135deg,' + outfitColor + ' 0%,' + lighterColor + ' 100%)">' +
                 '<div class="winter-scarf"></div><div class="winter-buttons"></div></div>';
         case 'sailor':
-            return '<div class="animal-body sailor" style="background: linear-gradient(135deg, ' + outfitColor + ' 0%, ' + lighterColor + ' 100%)">' +
-                '<div class="sailor-collar"></div><div class="sailor-tie"></div></div>';
+            return '<div class="animal-body sailor"><div class="sailor-collar"></div><div class="sailor-tie"></div></div>';
         case 'overalls':
-            return '<div class="animal-body overalls" style="background: linear-gradient(135deg, ' + outfitColor + ' 0%, ' + lighterColor + ' 100%)">' +
-                '<div class="overalls-straps" style="background: ' + darkerColor + '"></div>' +
-                '<div class="overalls-pocket" style="background: ' + darkerColor + '"></div></div>';
-        case 'knight':
-            return '<div class="animal-body knight">' +
-                '<div class="knight-armor"></div><div class="knight-chest"></div><div class="knight-belt"></div></div>';
-        case 'princess':
-            return '<div class="animal-body princess">' +
-                '<div class="princess-bodice"></div><div class="princess-gems"></div><div class="princess-sash"></div></div>';
-        case 'pirate':
-            return '<div class="animal-body pirate">' +
-                '<div class="pirate-vest"></div><div class="pirate-belt"></div><div class="pirate-buckle"></div></div>';
-        case 'wizard':
-            return '<div class="animal-body wizard">' +
-                '<div class="wizard-robe"></div><div class="wizard-stars"></div><div class="wizard-belt"></div></div>';
-        case 'fairy':
-            return '<div class="animal-body fairy">' +
-                '<div class="fairy-dress"></div><div class="fairy-wings"></div><div class="fairy-sparkles"></div></div>';
-        case 'santa':
-            return '<div class="animal-body santa">' +
-                '<div class="santa-coat"></div><div class="santa-belt"></div><div class="santa-fur"></div></div>';
-        case 'vampire':
-            return '<div class="animal-body vampire">' +
-                '<div class="vampire-cape"></div><div class="vampire-vest"></div><div class="vampire-medal"></div></div>';
-        case 'maid':
-            return '<div class="animal-body maid">' +
-                '<div class="maid-dress"></div><div class="maid-apron"></div><div class="maid-ribbon"></div></div>';
-        case 'butler':
-            return '<div class="animal-body butler">' +
-                '<div class="butler-coat"></div><div class="butler-vest"></div><div class="butler-bowtie"></div></div>';
+            return '<div class="animal-body overalls" style="background:linear-gradient(135deg,' + outfitColor + ' 0%,' + lighterColor + ' 100%)">' +
+                '<div class="overalls-straps" style="background:' + darkerColor + '"></div><div class="overalls-pocket" style="background:' + darkerColor + '"></div></div>';
         case 'chef':
-            return '<div class="animal-body chef" style="background: linear-gradient(135deg, ' + outfitColor + ' 0%, ' + lighterColor + ' 100%)">' +
-                '<div class="chef-buttons"></div><div class="chef-apron"></div></div>';
-        case 'doctor':
-            return '<div class="animal-body doctor" style="background: linear-gradient(135deg, ' + outfitColor + ' 0%, ' + lighterColor + ' 100%)">' +
-                '<div class="doctor-coat"></div><div class="doctor-pocket"></div></div>';
+            return '<div class="animal-body chef" style="background:linear-gradient(135deg,' + outfitColor + ' 0%,' + lighterColor + ' 100%)">' +
+                '<div class="chef-buttons"></div></div>';
+        case 'knight':
+            return '<div class="animal-body knight"><div class="knight-armor"></div><div class="knight-chest"></div><div class="knight-belt"></div></div>';
+        case 'princess':
+            return '<div class="animal-body princess"><div class="princess-bodice"></div><div class="princess-gems"></div><div class="princess-sash"></div></div>';
+        case 'pirate':
+            return '<div class="animal-body pirate"><div class="pirate-vest"></div><div class="pirate-belt"></div><div class="pirate-buckle"></div></div>';
+        case 'wizard':
+            return '<div class="animal-body wizard"><div class="wizard-stars"></div><div class="wizard-belt"></div></div>';
+        case 'fairy':
+            return '<div class="animal-body fairy"><div class="fairy-wings"></div><div class="fairy-sparkles"></div></div>';
+        case 'santa':
+            return '<div class="animal-body santa"><div class="santa-fur"></div><div class="santa-belt"></div></div>';
+        case 'vampire':
+            return '<div class="animal-body vampire"><div class="vampire-cape"></div><div class="vampire-vest"></div><div class="vampire-medal"></div></div>';
+        case 'maid':
+            return '<div class="animal-body maid"><div class="maid-apron"></div><div class="maid-ribbon"></div></div>';
+        case 'butler':
+            return '<div class="animal-body butler"><div class="butler-vest"></div><div class="butler-bowtie"></div></div>';
         case 'astronaut':
-            return '<div class="animal-body astronaut">' +
-                '<div class="astronaut-suit"></div><div class="astronaut-panel"></div><div class="astronaut-patches"></div></div>';
+            return '<div class="animal-body astronaut"><div class="astronaut-panel"></div><div class="astronaut-patches"></div></div>';
+        case 'king':
+            return '<div class="animal-body king"><div class="king-robe"></div><div class="king-collar"></div><div class="king-belt"></div><div class="king-medal"></div></div>';
         default:
-            return '<div class="animal-body casual" style="background: linear-gradient(135deg, ' + outfitColor + ' 0%, ' + lighterColor + ' 100%)"></div>';
+            return '<div class="animal-body casual" style="background:linear-gradient(135deg,' + outfitColor + ' 0%,' + lighterColor + ' 100%)"></div>';
     }
 }
 
@@ -369,7 +356,7 @@ function startAvatarAnimations(avatar) {
         }
         setTimeout(blink, 2000 + Math.random() * 2000);
     }
-    
+
     function wiggleEars() {
         if (Math.random() > 0.6) {
             avatar.classList.add('ear-wiggle');
@@ -379,7 +366,7 @@ function startAvatarAnimations(avatar) {
         }
         setTimeout(wiggleEars, 3000 + Math.random() * 3000);
     }
-    
+
     setTimeout(blink, 1000);
     setTimeout(wiggleEars, 2000);
 }
@@ -422,29 +409,30 @@ function isChangingToAzza(oldFirst, oldLast, newFirst, newLast) {
 
 function showSpecialAzzaPage(avatarConfig) {
     var overlay = document.getElementById('specialAzzaOverlay');
-    
+
     if (!overlay) {
         overlay = document.createElement('div');
         overlay.id = 'specialAzzaOverlay';
         overlay.className = 'special-azza-overlay';
-        
-        overlay.innerHTML = '<div class="sparkles-bg" id="sparklesBg"></div>' +
+
+        overlay.innerHTML =
+            '<div class="sparkles-bg" id="sparklesBg"></div>' +
             '<div class="flowers-container" id="flowersContainer"></div>' +
             '<div class="special-azza-content">' +
-            '<div class="special-azza-avatar" id="azzaAvatarContainer"></div>' +
-            '<h1 class="special-azza-title">Welcome, Azza! 💕</h1>' +
-            '<div class="special-azza-hearts">' +
-            '<span class="heart">💖</span><span class="heart">💕</span><span class="heart">💗</span><span class="heart">💕</span><span class="heart">💖</span>' +
-            '</div>' +
-            '<div class="special-azza-message">' +
-            '<p>This entire page was created just for you. Every letter, every word, every animation - it\'s all a testament to how special you are.</p>' +
-            '<p>You deserve all the love and happiness in the world. Never forget how amazing you are! ✨</p>' +
-            '</div>' +
-            '<button class="special-azza-close" id="closeAzzaPage">Enter Your Special Space 💕</button>' +
+                '<div class="special-azza-avatar" id="azzaAvatarContainer"></div>' +
+                '<h1 class="special-azza-title">Welcome, Azza! 💕</h1>' +
+                '<div class="special-azza-hearts">' +
+                    '<span class="heart">💖</span><span class="heart">💕</span><span class="heart">💗</span><span class="heart">💕</span><span class="heart">💖</span>' +
+                '</div>' +
+                '<div class="special-azza-message">' +
+                    '<p>This entire page was created just for you. Every letter, every word, every animation - it\'s all a testament to how special you are.</p>' +
+                    '<p>You deserve all the love and happiness in the world. Never forget how amazing you are! ✨</p>' +
+                '</div>' +
+                '<button class="special-azza-close" id="closeAzzaPage">Enter Your Special Space 💕</button>' +
             '</div>';
-        
+
         document.body.appendChild(overlay);
-        
+
         document.getElementById('closeAzzaPage').addEventListener('click', function() {
             overlay.classList.add('hiding');
             setTimeout(function() {
@@ -453,10 +441,10 @@ function showSpecialAzzaPage(avatarConfig) {
             }, 500);
         });
     }
-    
+
     overlay.style.display = 'flex';
     overlay.classList.add('show');
-    
+
     setTimeout(function() {
         renderAvatar('azzaAvatarContainer', avatarConfig, 'normal', true);
         createFlowers(document.getElementById('flowersContainer'));
