@@ -14,9 +14,34 @@ function initMainContent() {
         return new Date(year, month + 1, 0).getDate();
     }
 
+    function isAzzaProfile() {
+        var saved = localStorage.getItem('userProfile');
+        if (!saved) return false;
+
+        try {
+            var profile = JSON.parse(saved);
+            var first = profile && profile.firstName ? profile.firstName.toLowerCase().trim() : '';
+            var last = profile && profile.lastName ? profile.lastName.toLowerCase().trim() : '';
+            return first === 'azza' && last === 'chouikh';
+        } catch (e) {
+            return false;
+        }
+    }
+
+    function updateSecretButtonVisibility() {
+        var secretLetterButton = document.getElementById('secretLetterButton');
+        if (!secretLetterButton) return;
+
+        if (isAzzaProfile()) {
+            secretLetterButton.style.display = 'block';
+        } else {
+            secretLetterButton.style.display = 'none';
+        }
+    }
+
     function createEnvelopes() {
         if (!envelopesContainer) return;
-        
+
         var now = new Date();
         var month = now.getMonth();
         var year = now.getFullYear();
@@ -33,7 +58,7 @@ function initMainContent() {
             envelope.className = 'envelope';
             envelope.innerHTML = '<div class="flap"></div><div class="letter">❤️</div>';
             envelope.dataset.day = i;
-            
+
             var letter = shuffledLetters[(i - 1) % shuffledLetters.length];
             var randomBgIndex = Math.floor(Math.random() * backgrounds.length);
             letter.bg = backgrounds[randomBgIndex];
@@ -44,16 +69,17 @@ function initMainContent() {
                     if (currentOpenEnvelope && currentOpenEnvelope !== env) {
                         currentOpenEnvelope.classList.remove('open');
                     }
+
                     env.classList.toggle('open');
                     currentOpenEnvelope = env.classList.contains('open') ? env : null;
-                    
+
                     if (env.classList.contains('open')) {
                         var letterData = JSON.parse(env.dataset.letter);
                         openLetter(letterData, dayNum);
                     }
                 });
             })(envelope, i);
-            
+
             envelopesContainer.appendChild(envelope);
         }
 
@@ -84,7 +110,7 @@ function initMainContent() {
 
             localStorage.setItem('todayLetter_' + todayKey, JSON.stringify(selectedLetter));
             openLetter(selectedLetter, today);
-            
+
             var todayEnvelope = document.querySelector('.envelope[data-day="' + today + '"]');
             if (todayEnvelope) {
                 todayEnvelope.classList.add('open');
@@ -95,11 +121,11 @@ function initMainContent() {
 
     function openLetter(letter) {
         if (!letter || !letter.bg) return;
-        
+
         body.style.backgroundImage = letter.bg.url;
         letterContent.innerHTML = '<h2>A special message for you</h2><h3>' + letter.word + '</h3><p>' + letter.message + '</p>';
         modal.style.display = 'flex';
-        
+
         if (typeof ProfileManager !== 'undefined') {
             ProfileManager.incrementLettersOpened();
         }
@@ -119,9 +145,9 @@ function initMainContent() {
 
     function createGalaxyAnimation() {
         if (!galaxyAnimation) return;
-        
+
         galaxyAnimation.innerHTML = '';
-        
+
         for (var i = 0; i < 100; i++) {
             var star = document.createElement('div');
             star.className = 'star';
@@ -134,7 +160,7 @@ function initMainContent() {
             galaxyAnimation.appendChild(star);
         }
 
-        for (var i = 0; i < 5; i++) {
+        for (var j = 0; j < 5; j++) {
             var shootingStar = document.createElement('div');
             shootingStar.className = 'shooting-star';
             shootingStar.style.top = Math.random() * 50 + 'vh';
@@ -150,6 +176,8 @@ function initMainContent() {
     var secretLetterButton = document.getElementById('secretLetterButton');
     if (secretLetterButton) {
         secretLetterButton.addEventListener('click', function() {
+            if (!isAzzaProfile()) return;
+
             var secretModal = document.getElementById('secretLetterModal');
             var textContainer = document.getElementById('secretLetterText');
 
@@ -219,4 +247,13 @@ function initMainContent() {
 
     createEnvelopes();
     createGalaxyAnimation();
+    updateSecretButtonVisibility();
+
+    window.addEventListener('storage', function() {
+        updateSecretButtonVisibility();
+    });
+
+    setInterval(function() {
+        updateSecretButtonVisibility();
+    }, 1000);
 }
