@@ -1,5 +1,3 @@
-/* style.css - Main Styles */
-
 :root {
     --primary-bg: #fff8f8;
     --secondary-bg: #fff0f5;
@@ -409,7 +407,6 @@ h1 {
     background-color: #ff5266;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
     h1 {
         font-size: 2.5rem;
@@ -437,7 +434,6 @@ h1 {
     }
 }
 
-/* Custom scrollbar */
 ::-webkit-scrollbar {
     width: 8px;
 }
@@ -483,4 +479,12 @@ h1 {
 
 .wordle-replay-button i {
     font-size: 18px;
+}
+
+.secret-letter-button {
+    display: none;
+}
+
+.secret-letter-button.show {
+    display: block;
 }
