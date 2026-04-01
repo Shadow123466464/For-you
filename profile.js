@@ -14,6 +14,7 @@ var ProfileManager = {
     themeColor: '#ff6b81',
 
     init: function() {
+        this.normalizeExistingGenderButtons();
         this.loadProfile();
         this.setupEventListeners();
         var self = this;
@@ -22,13 +23,47 @@ var ProfileManager = {
         }, 200);
     },
 
+    normalizeExistingGenderButtons: function() {
+        var setupGenderButtons = document.querySelectorAll('#genderOptions .option-btn');
+        for (var i = 0; i < setupGenderButtons.length; i++) {
+            var val = setupGenderButtons[i].dataset.value;
+            if (val === 'girl') setupGenderButtons[i].dataset.value = 'female';
+            if (val === 'boy') setupGenderButtons[i].dataset.value = 'male';
+        }
+
+        var settingsGenderButtons = document.querySelectorAll('#settingsGenderOptions .option-btn');
+        for (var j = 0; j < settingsGenderButtons.length; j++) {
+            var val2 = settingsGenderButtons[j].dataset.value;
+            if (val2 === 'girl') settingsGenderButtons[j].dataset.value = 'female';
+            if (val2 === 'boy') settingsGenderButtons[j].dataset.value = 'male';
+        }
+
+        var setupAccessoryGender = document.querySelectorAll('#headAccessoryOptions [data-gender]');
+        for (var k = 0; k < setupAccessoryGender.length; k++) {
+            var g1 = setupAccessoryGender[k].dataset.gender;
+            if (g1 === 'girl') setupAccessoryGender[k].dataset.gender = 'female';
+            if (g1 === 'boy') setupAccessoryGender[k].dataset.gender = 'male';
+        }
+
+        var settingsAccessoryGender = document.querySelectorAll('#settingsAccessoryOptions [data-gender]');
+        for (var l = 0; l < settingsAccessoryGender.length; l++) {
+            var g2 = settingsAccessoryGender[l].dataset.gender;
+            if (g2 === 'girl') settingsAccessoryGender[l].dataset.gender = 'female';
+            if (g2 === 'boy') settingsAccessoryGender[l].dataset.gender = 'male';
+        }
+    },
+
     loadProfile: function() {
         var saved = localStorage.getItem('userProfile');
         if (saved) {
             this.profile = JSON.parse(saved);
             if (this.profile.avatar) {
+                var savedGender = this.profile.avatar.gender || 'female';
+                if (savedGender === 'girl') savedGender = 'female';
+                if (savedGender === 'boy') savedGender = 'male';
+
                 this.avatarConfig = {
-                    gender: this.profile.avatar.gender || 'female',
+                    gender: savedGender,
                     animalType: this.profile.avatar.animalType || 'cat',
                     furColor: this.profile.avatar.furColor || 'orange',
                     outfitStyle: this.profile.avatar.outfitStyle || 'casual',
@@ -712,6 +747,8 @@ var ProfileManager = {
     },
 
     updateSettingsGenderOptions: function(gender) {
+        this.avatarConfig.gender = gender;
+
         var settingsAccessoryOptions = document.getElementById('settingsAccessoryOptions');
         if (settingsAccessoryOptions) {
             var options = settingsAccessoryOptions.querySelectorAll('.scroll-option[data-gender]');
