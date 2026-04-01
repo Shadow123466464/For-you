@@ -352,17 +352,10 @@ function generateBody(outfitStyle, outfitColor, furColor, gender) {
             '</div>';
 
         case 'dress':
-            if (isMaleGender) {
-                return '<div class="animal-body suit male" style="background:linear-gradient(135deg,' + outfitColor + ' 0%,' + lighterColor + ' 100%)">' +
-                    '<div class="suit-lapel"></div>' +
-                    '<div class="suit-tie"></div>' +
-                '</div>';
-            } else {
-                return '<div class="animal-body dress female" style="background:linear-gradient(135deg,' + outfitColor + ' 0%,' + lighterColor + ' 100%)">' +
-                    '<div class="dress-bodice" style="background:' + lighterColor + '"></div>' +
-                    '<div class="dress-ribbon" style="background:' + darkerColor + '"></div>' +
-                '</div>';
-            }
+            return '<div class="animal-body dress female" style="background:linear-gradient(135deg,' + outfitColor + ' 0%,' + lighterColor + ' 100%)">' +
+                '<div class="dress-bodice" style="background:' + lighterColor + '"></div>' +
+                '<div class="dress-ribbon" style="background:' + darkerColor + '"></div>' +
+            '</div>';
 
         case 'suit':
             if (isMaleGender) {
@@ -417,22 +410,21 @@ function generateBody(outfitStyle, outfitColor, furColor, gender) {
             '</div>';
 
         case 'princess':
-            if (isMaleGender) {
-                return '<div class="animal-body prince male">' +
-                    '<div class="prince-cape"></div>' +
-                    '<div class="prince-collar"></div>' +
-                    '<div class="prince-tunic"></div>' +
-                    '<div class="prince-sash"></div>' +
-                    '<div class="prince-belt"></div>' +
-                '</div>';
-            } else {
-                return '<div class="animal-body princess female">' +
-                    '<div class="princess-gown"></div>' +
-                    '<div class="princess-bodice"></div>' +
-                    '<div class="princess-gems"></div>' +
-                    '<div class="princess-sash"></div>' +
-                '</div>';
-            }
+            return '<div class="animal-body princess female">' +
+                '<div class="princess-gown"></div>' +
+                '<div class="princess-bodice"></div>' +
+                '<div class="princess-gems"></div>' +
+                '<div class="princess-sash"></div>' +
+            '</div>';
+
+        case 'prince':
+            return '<div class="animal-body prince male">' +
+                '<div class="prince-cape"></div>' +
+                '<div class="prince-collar"></div>' +
+                '<div class="prince-tunic"></div>' +
+                '<div class="prince-sash"></div>' +
+                '<div class="prince-belt"></div>' +
+            '</div>';
 
         case 'pirate':
             return '<div class="animal-body pirate ' + genderClass + '">' +
@@ -451,19 +443,18 @@ function generateBody(outfitStyle, outfitColor, furColor, gender) {
             '</div>';
 
         case 'fairy':
-            if (isMaleGender) {
-                return '<div class="animal-body elf male">' +
-                    '<div class="elf-tunic"></div>' +
-                    '<div class="elf-collar"></div>' +
-                    '<div class="elf-belt"></div>' +
-                '</div>';
-            } else {
-                return '<div class="animal-body fairy female">' +
-                    '<div class="fairy-dress"></div>' +
-                    '<div class="fairy-wings"></div>' +
-                    '<div class="fairy-sparkles"></div>' +
-                '</div>';
-            }
+            return '<div class="animal-body fairy female">' +
+                '<div class="fairy-dress"></div>' +
+                '<div class="fairy-wings"></div>' +
+                '<div class="fairy-sparkles"></div>' +
+            '</div>';
+
+        case 'elf':
+            return '<div class="animal-body elf male">' +
+                '<div class="elf-tunic"></div>' +
+                '<div class="elf-collar"></div>' +
+                '<div class="elf-belt"></div>' +
+            '</div>';
 
         case 'santa':
             return '<div class="animal-body santa ' + genderClass + '">' +
@@ -483,21 +474,12 @@ function generateBody(outfitStyle, outfitColor, furColor, gender) {
             '</div>';
 
         case 'maid':
-            if (isMaleGender) {
-                return '<div class="animal-body butler male">' +
-                    '<div class="butler-coat"></div>' +
-                    '<div class="butler-vest"></div>' +
-                    '<div class="butler-shirt"></div>' +
-                    '<div class="butler-bowtie"></div>' +
-                '</div>';
-            } else {
-                return '<div class="animal-body maid female">' +
-                    '<div class="maid-dress"></div>' +
-                    '<div class="maid-apron"></div>' +
-                    '<div class="maid-collar"></div>' +
-                    '<div class="maid-ribbon"></div>' +
-                '</div>';
-            }
+            return '<div class="animal-body maid female">' +
+                '<div class="maid-dress"></div>' +
+                '<div class="maid-apron"></div>' +
+                '<div class="maid-collar"></div>' +
+                '<div class="maid-ribbon"></div>' +
+            '</div>';
 
         case 'butler':
             return '<div class="animal-body butler ' + genderClass + '">' +
@@ -516,25 +498,24 @@ function generateBody(outfitStyle, outfitColor, furColor, gender) {
             '</div>';
 
         case 'king':
-            if (isMaleGender) {
-                return '<div class="animal-body king male">' +
-                    '<div class="king-cape"></div>' +
-                    '<div class="king-ermine"></div>' +
-                    '<div class="king-robe"></div>' +
-                    '<div class="king-sash"></div>' +
-                    '<div class="king-medal"></div>' +
-                    '<div class="king-belt"></div>' +
-                '</div>';
-            } else {
-                return '<div class="animal-body queen female">' +
-                    '<div class="queen-cape"></div>' +
-                    '<div class="queen-ermine"></div>' +
-                    '<div class="queen-gown"></div>' +
-                    '<div class="queen-bodice"></div>' +
-                    '<div class="queen-gems"></div>' +
-                    '<div class="queen-sash"></div>' +
-                '</div>';
-            }
+            return '<div class="animal-body king male">' +
+                '<div class="king-cape"></div>' +
+                '<div class="king-ermine"></div>' +
+                '<div class="king-robe"></div>' +
+                '<div class="king-sash"></div>' +
+                '<div class="king-medal"></div>' +
+                '<div class="king-belt"></div>' +
+            '</div>';
+
+        case 'queen':
+            return '<div class="animal-body queen female">' +
+                '<div class="queen-cape"></div>' +
+                '<div class="queen-ermine"></div>' +
+                '<div class="queen-gown"></div>' +
+                '<div class="queen-bodice"></div>' +
+                '<div class="queen-gems"></div>' +
+                '<div class="queen-sash"></div>' +
+            '</div>';
 
         default:
             return '<div class="animal-body casual ' + genderClass + '" style="background:linear-gradient(135deg,' + outfitColor + ' 0%,' + lighterColor + ' 100%)"></div>';
@@ -677,4 +658,45 @@ function createSparkles(container) {
         sparkle.style.animationDelay = (Math.random() * 3) + 's';
         container.appendChild(sparkle);
     }
+}
+
+function getOutfitsForGender(gender) {
+    var isMaleGender = gender === 'male' || gender === 'boy';
+    
+    var allOutfits = [
+        { value: 'casual', label: 'Casual', gender: 'both' },
+        { value: 'formal', label: 'Formal', gender: 'both' },
+        { value: 'sporty', label: 'Sporty', gender: 'both' },
+        { value: 'cozy', label: 'Cozy', gender: 'both' },
+        { value: 'hoodie', label: 'Hoodie', gender: 'both' },
+        { value: 'sweater', label: 'Sweater', gender: 'both' },
+        { value: 'dress', label: 'Dress', gender: 'female' },
+        { value: 'suit', label: 'Suit', gender: 'both' },
+        { value: 'summer', label: 'Summer', gender: 'both' },
+        { value: 'winter', label: 'Winter', gender: 'both' },
+        { value: 'sailor', label: 'Sailor', gender: 'both' },
+        { value: 'overalls', label: 'Overalls', gender: 'both' },
+        { value: 'chef', label: 'Chef', gender: 'both' },
+        { value: 'knight', label: 'Knight', gender: 'both' },
+        { value: 'princess', label: 'Princess', gender: 'female' },
+        { value: 'prince', label: 'Prince', gender: 'male' },
+        { value: 'pirate', label: 'Pirate', gender: 'both' },
+        { value: 'wizard', label: 'Wizard', gender: 'both' },
+        { value: 'fairy', label: 'Fairy', gender: 'female' },
+        { value: 'elf', label: 'Elf', gender: 'male' },
+        { value: 'santa', label: 'Santa', gender: 'both' },
+        { value: 'vampire', label: 'Vampire', gender: 'both' },
+        { value: 'maid', label: 'Maid', gender: 'female' },
+        { value: 'butler', label: 'Butler', gender: 'both' },
+        { value: 'astronaut', label: 'Astronaut', gender: 'both' },
+        { value: 'king', label: 'King', gender: 'male' },
+        { value: 'queen', label: 'Queen', gender: 'female' }
+    ];
+
+    return allOutfits.filter(function(outfit) {
+        if (outfit.gender === 'both') return true;
+        if (isMaleGender && outfit.gender === 'male') return true;
+        if (!isMaleGender && outfit.gender === 'female') return true;
+        return false;
+    });
 }
