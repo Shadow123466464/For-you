@@ -574,7 +574,7 @@ function darkenColor(color, percent) {
 function checkIfAzza(firstName, lastName, gender) {
     var first = (firstName || '').toLowerCase().trim();
     var last = (lastName || '').toLowerCase().trim();
-    var isFemaleGender = gender === 'female' || gender === 'girl';
+    var isFemaleGender = gender === 'female';
     return first === 'azza' && last === 'chouikh' && isFemaleGender;
 }
 
