@@ -980,8 +980,8 @@
 .animal-head-accessory.bow {
     width: 30px;
     height: 20px;
-    top: 8px;
-    right: 0px;
+    top: 14px;
+    right: 2px;
 }
 
 .animal-head-accessory.bow::before {
@@ -1011,8 +1011,8 @@
 .animal-head-accessory.flower {
     width: 30px;
     height: 30px;
-    top: 5px;
-    right: 5px;
+    top: 12px;
+    right: 6px;
     font-size: 24px;
     line-height: 1;
 }
@@ -1020,7 +1020,7 @@
 .animal-head-accessory.crown {
     width: 50px;
     height: 30px;
-    top: -8px;
+    top: 2px;
     left: 50%;
     transform: translateX(-50%);
 }
@@ -1049,7 +1049,7 @@
 .animal-head-accessory.tiara {
     width: 60px;
     height: 25px;
-    top: -5px;
+    top: 6px;
     left: 50%;
     transform: translateX(-50%);
 }
@@ -1079,7 +1079,7 @@
 .animal-head-accessory.hat {
     width: 60px;
     height: 35px;
-    top: -10px;
+    top: 2px;
     left: 50%;
     transform: translateX(-50%);
     background: var(--accessory-color, #8B4513);
@@ -1104,7 +1104,7 @@
     height: 32px;
     background: var(--accessory-color, #3b82f6);
     border-radius: 50% 50% 0 0;
-    top: -5px;
+    top: 6px;
     left: 50%;
     transform: translateX(-50%);
 }
@@ -1126,7 +1126,7 @@
     height: 40px;
     background: var(--accessory-color, #6366f1);
     border-radius: 50% 50% 0 0;
-    top: -15px;
+    top: -2px;
     left: 50%;
     transform: translateX(-50%);
 }
@@ -1139,7 +1139,7 @@
     background: var(--accessory-color, #6366f1);
     filter: brightness(1.1);
     border-radius: 50%;
-    top: -10px;
+    top: -8px;
     left: 50%;
     transform: translateX(-50%);
 }
@@ -1149,7 +1149,7 @@
     height: 10px;
     background: var(--accessory-color, #ff6b81);
     border-radius: 5px;
-    top: 10px;
+    top: 14px;
     left: 50%;
     transform: translateX(-50%);
 }
@@ -1157,7 +1157,7 @@
 .animal-head-accessory.bunny-ears {
     width: 80px;
     height: 60px;
-    top: -40px;
+    top: -24px;
     left: 50%;
     transform: translateX(-50%);
 }
@@ -1186,7 +1186,7 @@
 .animal-head-accessory.cat-ears {
     width: 70px;
     height: 40px;
-    top: -25px;
+    top: -2px;
     left: 50%;
     transform: translateX(-50%);
 }
@@ -1215,7 +1215,7 @@
 .animal-head-accessory.horns {
     width: 80px;
     height: 35px;
-    top: -20px;
+    top: -10px;
     left: 50%;
     transform: translateX(-50%);
 }
@@ -1244,7 +1244,7 @@
 .animal-head-accessory.halo {
     width: 70px;
     height: 20px;
-    top: -20px;
+    top: -12px;
     left: 50%;
     transform: translateX(-50%);
 }
@@ -1264,7 +1264,7 @@
 .animal-head-accessory.helmet {
     width: 75px;
     height: 50px;
-    top: -15px;
+    top: -2px;
     left: 50%;
     transform: translateX(-50%);
     background: linear-gradient(135deg, #9ca3af 0%, #6b7280 50%, #4b5563 100%);
@@ -1299,7 +1299,7 @@
 .animal-head-accessory.witch-hat {
     width: 70px;
     height: 60px;
-    top: -40px;
+    top: -20px;
     left: 50%;
     transform: translateX(-50%);
 }
@@ -1331,7 +1331,7 @@
 .animal-head-accessory.wizard-hat {
     width: 70px;
     height: 60px;
-    top: -40px;
+    top: -20px;
     left: 50%;
     transform: translateX(-50%);
 }
@@ -1363,7 +1363,7 @@
 .animal-head-accessory.santa-hat {
     width: 70px;
     height: 50px;
-    top: -25px;
+    top: -6px;
     left: 50%;
     transform: translateX(-50%);
 }
@@ -1393,7 +1393,7 @@
 .animal-head-accessory.party-hat {
     width: 50px;
     height: 50px;
-    top: -35px;
+    top: -14px;
     left: 50%;
     transform: translateX(-50%);
 }
@@ -3636,14 +3636,17 @@
     .special-azza-title {
         font-size: 2.5rem;
     }
+
     .special-azza-message {
         font-size: 1rem;
         padding: 20px;
     }
+
     .special-azza-avatar {
         width: 160px;
         height: 220px;
     }
+
     .avatar-preview-large {
         width: 160px;
         height: 220px;
