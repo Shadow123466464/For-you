@@ -229,52 +229,92 @@ var ProfileManager = {
         }
     },
 
-    updateGenderOptions: function(gender) {
-        this.avatarConfig.gender = gender;
+updateGenderOptions: function(gender) {
+    this.avatarConfig.gender = gender;
 
-        var setupAccessories = document.getElementById('headAccessoryOptions');
-        if (setupAccessories) {
-            var setupCards = setupAccessories.querySelectorAll('.option-card[data-gender]');
-            for (var i = 0; i < setupCards.length; i++) {
-                var card = setupCards[i];
-                var cardGender = card.dataset.gender;
-                if (cardGender === 'both' || cardGender === gender) {
-                    card.style.display = '';
-                } else {
-                    card.style.display = 'none';
-                    if (card.classList.contains('selected')) {
-                        card.classList.remove('selected');
-                        var noneOption = setupAccessories.querySelector('.option-card[data-value="none"]');
-                        if (noneOption) noneOption.classList.add('selected');
-                        this.avatarConfig.headAccessory = 'none';
-                    }
+    var setupAccessories = document.getElementById('headAccessoryOptions');
+    if (setupAccessories) {
+        var setupCards = setupAccessories.querySelectorAll('.option-card[data-gender]');
+        for (var i = 0; i < setupCards.length; i++) {
+            var card = setupCards[i];
+            var cardGender = card.dataset.gender;
+            if (cardGender === 'both' || cardGender === gender) {
+                card.style.display = '';
+            } else {
+                card.style.display = 'none';
+                if (card.classList.contains('selected')) {
+                    card.classList.remove('selected');
+                    var noneOption = setupAccessories.querySelector('.option-card[data-value="none"]');
+                    if (noneOption) noneOption.classList.add('selected');
+                    this.avatarConfig.headAccessory = 'none';
                 }
             }
         }
+    }
 
-        var settingsAccessories = document.getElementById('settingsAccessoryOptions');
-        if (settingsAccessories) {
-            var settingsCards = settingsAccessories.querySelectorAll('.scroll-option[data-gender]');
-            for (var j = 0; j < settingsCards.length; j++) {
-                var option = settingsCards[j];
-                var optionGender = option.dataset.gender;
-                if (optionGender === 'both' || optionGender === gender) {
-                    option.style.display = '';
-                } else {
-                    option.style.display = 'none';
-                    if (option.classList.contains('selected')) {
-                        option.classList.remove('selected');
-                        var noneOption2 = settingsAccessories.querySelector('.scroll-option[data-value="none"]');
-                        if (noneOption2) noneOption2.classList.add('selected');
-                        this.avatarConfig.headAccessory = 'none';
-                    }
+    var setupOutfits = document.getElementById('outfitStyleOptions');
+    if (setupOutfits) {
+        var outfitCards = setupOutfits.querySelectorAll('.option-card[data-gender]');
+        for (var j = 0; j < outfitCards.length; j++) {
+            var outfitCard = outfitCards[j];
+            var outfitGender = outfitCard.dataset.gender;
+            if (outfitGender === 'both' || outfitGender === gender) {
+                outfitCard.style.display = '';
+            } else {
+                outfitCard.style.display = 'none';
+                if (outfitCard.classList.contains('selected')) {
+                    outfitCard.classList.remove('selected');
+                    var casualOption = setupOutfits.querySelector('.option-card[data-value="casual"]');
+                    if (casualOption) casualOption.classList.add('selected');
+                    this.avatarConfig.outfitStyle = 'casual';
                 }
             }
         }
+    }
 
-        this.renderSetupAvatar();
-        this.updateProfileDisplay();
-    },
+    var settingsAccessories = document.getElementById('settingsAccessoryOptions');
+    if (settingsAccessories) {
+        var settingsCards = settingsAccessories.querySelectorAll('.scroll-option[data-gender]');
+        for (var k = 0; k < settingsCards.length; k++) {
+            var option = settingsCards[k];
+            var optionGender = option.dataset.gender;
+            if (optionGender === 'both' || optionGender === gender) {
+                option.style.display = '';
+            } else {
+                option.style.display = 'none';
+                if (option.classList.contains('selected')) {
+                    option.classList.remove('selected');
+                    var noneOption2 = settingsAccessories.querySelector('.scroll-option[data-value="none"]');
+                    if (noneOption2) noneOption2.classList.add('selected');
+                    this.avatarConfig.headAccessory = 'none';
+                }
+            }
+        }
+    }
+
+    var settingsOutfits = document.getElementById('settingsOutfitOptions');
+    if (settingsOutfits) {
+        var settingsOutfitCards = settingsOutfits.querySelectorAll('.scroll-option[data-gender]');
+        for (var l = 0; l < settingsOutfitCards.length; l++) {
+            var outfitOption = settingsOutfitCards[l];
+            var outfitOptGender = outfitOption.dataset.gender;
+            if (outfitOptGender === 'both' || outfitOptGender === gender) {
+                outfitOption.style.display = '';
+            } else {
+                outfitOption.style.display = 'none';
+                if (outfitOption.classList.contains('selected')) {
+                    outfitOption.classList.remove('selected');
+                    var casualOption2 = settingsOutfits.querySelector('.scroll-option[data-value="casual"]');
+                    if (casualOption2) casualOption2.classList.add('selected');
+                    this.avatarConfig.outfitStyle = 'casual';
+                }
+            }
+        }
+    }
+
+    this.renderSetupAvatar();
+    this.updateProfileDisplay();
+},
 
     applyThemeColor: function(color) {
         this.themeColor = color;
@@ -669,27 +709,47 @@ var ProfileManager = {
         }
     },
 
-    updateSettingsGenderOptions: function(gender) {
-        var settingsAccessoryOptions = document.getElementById('settingsAccessoryOptions');
-        if (settingsAccessoryOptions) {
-            var options = settingsAccessoryOptions.querySelectorAll('.scroll-option[data-gender]');
-            for (var i = 0; i < options.length; i++) {
-                var option = options[i];
-                var optionGender = option.dataset.gender;
-                if (optionGender === 'both' || optionGender === gender) {
-                    option.style.display = '';
-                } else {
-                    option.style.display = 'none';
-                    if (option.classList.contains('selected')) {
-                        option.classList.remove('selected');
-                        var noneOption = settingsAccessoryOptions.querySelector('.scroll-option[data-value="none"]');
-                        if (noneOption) noneOption.classList.add('selected');
-                        this.avatarConfig.headAccessory = 'none';
-                    }
+updateSettingsGenderOptions: function(gender) {
+    var settingsAccessoryOptions = document.getElementById('settingsAccessoryOptions');
+    if (settingsAccessoryOptions) {
+        var options = settingsAccessoryOptions.querySelectorAll('.scroll-option[data-gender]');
+        for (var i = 0; i < options.length; i++) {
+            var option = options[i];
+            var optionGender = option.dataset.gender;
+            if (optionGender === 'both' || optionGender === gender) {
+                option.style.display = '';
+            } else {
+                option.style.display = 'none';
+                if (option.classList.contains('selected')) {
+                    option.classList.remove('selected');
+                    var noneOption = settingsAccessoryOptions.querySelector('.scroll-option[data-value="none"]');
+                    if (noneOption) noneOption.classList.add('selected');
+                    this.avatarConfig.headAccessory = 'none';
                 }
             }
         }
-    },
+    }
+
+    var settingsOutfitOptions = document.getElementById('settingsOutfitOptions');
+    if (settingsOutfitOptions) {
+        var outfitOptions = settingsOutfitOptions.querySelectorAll('.scroll-option[data-gender]');
+        for (var j = 0; j < outfitOptions.length; j++) {
+            var outfit = outfitOptions[j];
+            var outfitGender = outfit.dataset.gender;
+            if (outfitGender === 'both' || outfitGender === gender) {
+                outfit.style.display = '';
+            } else {
+                outfit.style.display = 'none';
+                if (outfit.classList.contains('selected')) {
+                    outfit.classList.remove('selected');
+                    var casual = settingsOutfitOptions.querySelector('.scroll-option[data-value="casual"]');
+                    if (casual) casual.classList.add('selected');
+                    this.avatarConfig.outfitStyle = 'casual';
+                }
+            }
+        }
+    }
+},
 
     openSettings: function() {
         var overlay = document.getElementById('settingsOverlay');
