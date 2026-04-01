@@ -47,6 +47,7 @@ function renderAvatar(containerId, config, size, animate) {
     var outfitColor = outfitColors[config.outfitColor] || outfitColors.pink;
     var accessoryColor = accessoryColors[config.accessoryColor] || accessoryColors.pink;
     var innerEarColor = config.furColor === 'white' || config.furColor === 'cream' ? '#ffb6c1' : '#ffcccb';
+    var gender = config.gender || 'girl';
 
     var sizeClass = '';
     if (size === 'mini') sizeClass = 'mini';
@@ -55,14 +56,14 @@ function renderAvatar(containerId, config, size, animate) {
     var animalType = config.animalType || 'cat';
 
     var avatar = document.createElement('div');
-    avatar.className = 'animal-avatar ' + sizeClass;
+    avatar.className = 'animal-avatar ' + sizeClass + ' ' + gender;
     if (animate) {
         avatar.classList.add('animated');
     }
 
-    var earsHTML = generateEars(animalType, furColor, innerEarColor);
+    var earsHTML = generateEars(animalType, furColor, innerEarColor, gender);
     var muzzleHTML = generateMuzzle(animalType, furColor);
-    var specialFeatures = generateSpecialFeatures(animalType, furColor);
+    var specialFeatures = generateSpecialFeatures(animalType, furColor, gender);
     var noseClass = animalType;
 
     var glassesHTML = '';
@@ -70,7 +71,7 @@ function renderAvatar(containerId, config, size, animate) {
         glassesHTML = '<div class="animal-glasses ' + config.glasses + '"><div class="glasses-bridge"></div></div>';
     }
 
-    var accessoryHTML = generateAccessory(config.headAccessory, accessoryColor, config.gender);
+    var accessoryHTML = generateAccessory(config.headAccessory, accessoryColor, gender);
 
     var cheekHTML = '';
     if (config.cheekStyle && config.cheekStyle !== 'none') {
@@ -81,7 +82,7 @@ function renderAvatar(containerId, config, size, animate) {
     }
 
     var eyelashesHTML = '';
-    if (config.gender === 'girl') {
+    if (gender === 'girl') {
         eyelashesHTML = '<div class="animal-eyelashes left"></div><div class="animal-eyelashes right"></div>';
     }
 
@@ -91,12 +92,12 @@ function renderAvatar(containerId, config, size, animate) {
     }
 
     var maneHTML = '';
-    if (animalType === 'lion') {
+    if (animalType === 'lion' && gender === 'boy') {
         maneHTML = specialFeatures;
         specialFeatures = '';
     }
 
-    var bodyHTML = generateBody(config.outfitStyle, outfitColor, furColor);
+    var bodyHTML = generateBody(config.outfitStyle, outfitColor, furColor, gender);
 
     var faceClass = 'animal-face ' + animalType;
     var eyesContainerClass = 'animal-eyes-container ' + animalType;
@@ -120,12 +121,12 @@ function renderAvatar(containerId, config, size, animate) {
                 '<div class="animal-nose ' + noseClass + '"></div>' +
                 '<div class="' + mouthContainerClass + '"><div class="animal-mouth smile"></div></div>' +
                 ((animalType === 'cat' || animalType === 'fox' || animalType === 'capybara') ? generateWhiskers(animalType) : '') +
-                ((animalType !== 'cat' && animalType !== 'fox' && animalType !== 'capybara') ? specialFeatures : '') +
+                ((animalType !== 'cat' && animalType !== 'fox' && animalType !== 'capybara' && animalType !== 'lion') ? specialFeatures : '') +
                 cheekHTML +
                 glassesHTML +
             '</div>' +
         '</div>' +
-        '<div class="animal-body-container">' +
+        '<div class="animal-body-container ' + gender + '">' +
             '<div class="animal-neck" style="background:' + furColor + '"></div>' +
             bodyHTML +
         '</div>';
@@ -146,7 +147,7 @@ function generateWhiskers(animalType) {
     '</div>';
 }
 
-function generateEars(animalType, furColor, innerEarColor) {
+function generateEars(animalType, furColor, innerEarColor, gender) {
     var darkFur = darkenColor(furColor, 20);
     var lightFur = lightenColor(furColor, 30);
 
@@ -214,14 +215,17 @@ function generateMuzzle(animalType, furColor) {
     return '<div class="face-muzzle' + muzzleClass + '" style="background:' + muzzleColor + '"></div>';
 }
 
-function generateSpecialFeatures(animalType, furColor) {
+function generateSpecialFeatures(animalType, furColor, gender) {
     var darkFur = darkenColor(furColor, 20);
 
     switch (animalType) {
         case 'panda':
             return '<div class="panda-eye-patches"><div class="eye-patch left"></div><div class="eye-patch right"></div></div>';
         case 'lion':
-            return '<div class="lion-mane" style="background:' + darkFur + '"></div>';
+            if (gender === 'boy') {
+                return '<div class="lion-mane" style="background:' + darkFur + '"></div>';
+            }
+            return '';
         default:
             return '';
     }
@@ -289,79 +293,126 @@ function generateAccessory(accessory, color, gender) {
     }
 }
 
-function generateBody(outfitStyle, outfitColor, furColor) {
+function generateBody(outfitStyle, outfitColor, furColor, gender) {
     var lighterColor = lightenColor(outfitColor, 15);
     var darkerColor = darkenColor(outfitColor, 15);
+    var genderClass = gender || 'girl';
 
     switch (outfitStyle) {
         case 'casual':
-            return '<div class="animal-body casual" style="background:linear-gradient(135deg,' + outfitColor + ' 0%,' + lighterColor + ' 100%)"></div>';
+            return '<div class="animal-body casual ' + genderClass + '" style="background:linear-gradient(135deg,' + outfitColor + ' 0%,' + lighterColor + ' 100%)"></div>';
         case 'formal':
-            return '<div class="animal-body formal" style="background:linear-gradient(135deg,' + outfitColor + ' 0%,' + lighterColor + ' 100%)">' +
-                '<div class="formal-collar"></div><div class="formal-tie" style="background:' + darkerColor + '"></div></div>';
+            if (genderClass === 'boy') {
+                return '<div class="animal-body formal ' + genderClass + '" style="background:linear-gradient(135deg,' + outfitColor + ' 0%,' + lighterColor + ' 100%)">' +
+                    '<div class="formal-collar"></div><div class="formal-tie" style="background:' + darkerColor + '"></div></div>';
+            } else {
+                return '<div class="animal-body formal ' + genderClass + '" style="background:linear-gradient(135deg,' + outfitColor + ' 0%,' + lighterColor + ' 100%)">' +
+                    '<div class="formal-neckline"></div></div>';
+            }
         case 'sporty':
-            return '<div class="animal-body sporty" style="background:linear-gradient(135deg,' + outfitColor + ' 0%,' + lighterColor + ' 100%)">' +
-                '<div class="sporty-stripe" style="background:rgba(255,255,255,0.5)"></div></div>';
+            return '<div class="animal-body sporty ' + genderClass + '" style="background:linear-gradient(135deg,' + outfitColor + ' 0%,' + lighterColor + ' 100%)">' +
+                '<div class="sporty-stripe" style="background:rgba(255,255,255,0.5)"></div>' +
+                (genderClass === 'boy' ? '<div class="sporty-number">23</div>' : '') +
+                '</div>';
         case 'cozy':
-            return '<div class="animal-body cozy" style="background:linear-gradient(135deg,' + outfitColor + ' 0%,' + lighterColor + ' 100%)">' +
+            return '<div class="animal-body cozy ' + genderClass + '" style="background:linear-gradient(135deg,' + outfitColor + ' 0%,' + lighterColor + ' 100%)">' +
                 '<div class="cozy-collar" style="background:' + darkerColor + '"></div></div>';
         case 'hoodie':
-            return '<div class="animal-body hoodie" style="background:linear-gradient(135deg,' + outfitColor + ' 0%,' + lighterColor + ' 100%)">' +
+            return '<div class="animal-body hoodie ' + genderClass + '" style="background:linear-gradient(135deg,' + outfitColor + ' 0%,' + lighterColor + ' 100%)">' +
                 '<div class="hoodie-pocket" style="background:' + darkerColor + '"></div><div class="hoodie-strings"></div></div>';
         case 'sweater':
-            return '<div class="animal-body sweater" style="background:linear-gradient(135deg,' + outfitColor + ' 0%,' + lighterColor + ' 100%)">' +
+            return '<div class="animal-body sweater ' + genderClass + '" style="background:linear-gradient(135deg,' + outfitColor + ' 0%,' + lighterColor + ' 100%)">' +
                 '<div class="sweater-pattern"></div></div>';
         case 'dress':
-            return '<div class="animal-body dress" style="background:linear-gradient(135deg,' + outfitColor + ' 0%,' + lighterColor + ' 100%)">' +
-                '<div class="dress-ribbon" style="background:' + darkerColor + '"></div></div>';
+            if (genderClass === 'boy') {
+                return '<div class="animal-body suit ' + genderClass + '" style="background:linear-gradient(135deg,' + outfitColor + ' 0%,' + lighterColor + ' 100%)">' +
+                    '<div class="suit-lapel"></div><div class="suit-tie"></div></div>';
+            } else {
+                return '<div class="animal-body dress ' + genderClass + '" style="background:linear-gradient(135deg,' + outfitColor + ' 0%,' + lighterColor + ' 100%)">' +
+                    '<div class="dress-ribbon" style="background:' + darkerColor + '"></div></div>';
+            }
         case 'suit':
-            return '<div class="animal-body suit" style="background:linear-gradient(135deg,' + outfitColor + ' 0%,' + lighterColor + ' 100%)">' +
-                '<div class="suit-lapel"></div><div class="suit-tie"></div></div>';
+            if (genderClass === 'boy') {
+                return '<div class="animal-body suit ' + genderClass + '" style="background:linear-gradient(135deg,' + outfitColor + ' 0%,' + lighterColor + ' 100%)">' +
+                    '<div class="suit-lapel"></div><div class="suit-tie"></div></div>';
+            } else {
+                return '<div class="animal-body suit-female ' + genderClass + '" style="background:linear-gradient(135deg,' + outfitColor + ' 0%,' + lighterColor + ' 100%)">' +
+                    '<div class="suit-female-lapel"></div></div>';
+            }
         case 'summer':
-            return '<div class="animal-body summer" style="background:linear-gradient(135deg,' + outfitColor + ' 0%,' + lighterColor + ' 100%)">' +
+            return '<div class="animal-body summer ' + genderClass + '" style="background:linear-gradient(135deg,' + outfitColor + ' 0%,' + lighterColor + ' 100%)">' +
                 '<div class="summer-pattern"></div></div>';
         case 'winter':
-            return '<div class="animal-body winter" style="background:linear-gradient(135deg,' + outfitColor + ' 0%,' + lighterColor + ' 100%)">' +
+            return '<div class="animal-body winter ' + genderClass + '" style="background:linear-gradient(135deg,' + outfitColor + ' 0%,' + lighterColor + ' 100%)">' +
                 '<div class="winter-scarf"></div><div class="winter-buttons"></div></div>';
         case 'sailor':
-            return '<div class="animal-body sailor"><div class="sailor-collar"></div><div class="sailor-tie"></div></div>';
+            return '<div class="animal-body sailor ' + genderClass + '"><div class="sailor-collar"></div><div class="sailor-tie"></div></div>';
         case 'overalls':
-            return '<div class="animal-body overalls" style="background:linear-gradient(135deg,' + outfitColor + ' 0%,' + lighterColor + ' 100%)">' +
+            return '<div class="animal-body overalls ' + genderClass + '" style="background:linear-gradient(135deg,' + outfitColor + ' 0%,' + lighterColor + ' 100%)">' +
                 '<div class="overalls-straps" style="background:' + darkerColor + '"></div><div class="overalls-pocket" style="background:' + darkerColor + '"></div></div>';
         case 'chef':
-            return '<div class="animal-body chef" style="background:linear-gradient(135deg,' + outfitColor + ' 0%,' + lighterColor + ' 100%)">' +
+            return '<div class="animal-body chef ' + genderClass + '" style="background:linear-gradient(135deg,' + outfitColor + ' 0%,' + lighterColor + ' 100%)">' +
                 '<div class="chef-buttons"></div></div>';
         case 'knight':
-            return '<div class="animal-body knight"><div class="knight-armor"></div><div class="knight-chest"></div><div class="knight-belt"></div></div>';
+            return '<div class="animal-body knight ' + genderClass + '"><div class="knight-armor"></div><div class="knight-chest"></div><div class="knight-belt"></div></div>';
         case 'princess':
-            return '<div class="animal-body princess"><div class="princess-bodice"></div><div class="princess-gems"></div><div class="princess-sash"></div></div>';
+            if (genderClass === 'boy') {
+                return '<div class="animal-body prince ' + genderClass + '">' +
+                    '<div class="prince-cape"></div>' +
+                    '<div class="prince-collar"></div>' +
+                    '<div class="prince-chest"></div>' +
+                    '<div class="prince-sash"></div>' +
+                    '<div class="prince-medal"></div>' +
+                    '<div class="prince-belt"></div>' +
+                '</div>';
+            } else {
+                return '<div class="animal-body princess ' + genderClass + '"><div class="princess-bodice"></div><div class="princess-gems"></div><div class="princess-sash"></div></div>';
+            }
         case 'pirate':
-            return '<div class="animal-body pirate"><div class="pirate-vest"></div><div class="pirate-belt"></div><div class="pirate-buckle"></div></div>';
+            return '<div class="animal-body pirate ' + genderClass + '"><div class="pirate-vest"></div><div class="pirate-belt"></div><div class="pirate-buckle"></div></div>';
         case 'wizard':
-            return '<div class="animal-body wizard"><div class="wizard-stars"></div><div class="wizard-belt"></div></div>';
+            return '<div class="animal-body wizard ' + genderClass + '"><div class="wizard-stars"></div><div class="wizard-belt"></div></div>';
         case 'fairy':
-            return '<div class="animal-body fairy"><div class="fairy-wings"></div><div class="fairy-sparkles"></div></div>';
+            if (genderClass === 'boy') {
+                return '<div class="animal-body elf ' + genderClass + '"><div class="elf-tunic"></div><div class="elf-belt"></div></div>';
+            } else {
+                return '<div class="animal-body fairy ' + genderClass + '"><div class="fairy-wings"></div><div class="fairy-sparkles"></div></div>';
+            }
         case 'santa':
-            return '<div class="animal-body santa"><div class="santa-fur"></div><div class="santa-belt"></div></div>';
+            return '<div class="animal-body santa ' + genderClass + '"><div class="santa-fur"></div><div class="santa-belt"></div></div>';
         case 'vampire':
-            return '<div class="animal-body vampire"><div class="vampire-cape"></div><div class="vampire-vest"></div><div class="vampire-medal"></div></div>';
+            return '<div class="animal-body vampire ' + genderClass + '"><div class="vampire-cape"></div><div class="vampire-vest"></div><div class="vampire-medal"></div></div>';
         case 'maid':
-            return '<div class="animal-body maid"><div class="maid-apron"></div><div class="maid-ribbon"></div></div>';
+            if (genderClass === 'boy') {
+                return '<div class="animal-body butler ' + genderClass + '"><div class="butler-vest"></div><div class="butler-bowtie"></div></div>';
+            } else {
+                return '<div class="animal-body maid ' + genderClass + '"><div class="maid-apron"></div><div class="maid-ribbon"></div></div>';
+            }
         case 'butler':
-            return '<div class="animal-body butler"><div class="butler-vest"></div><div class="butler-bowtie"></div></div>';
+            return '<div class="animal-body butler ' + genderClass + '"><div class="butler-vest"></div><div class="butler-bowtie"></div></div>';
         case 'astronaut':
-            return '<div class="animal-body astronaut"><div class="astronaut-panel"></div><div class="astronaut-patches"></div></div>';
+            return '<div class="animal-body astronaut ' + genderClass + '"><div class="astronaut-panel"></div><div class="astronaut-patches"></div></div>';
         case 'king':
-            return '<div class="animal-body king">' +
-                '<div class="king-cape"></div>' +
-                '<div class="king-ermine-collar"></div>' +
-                '<div class="king-chest-piece"></div>' +
-                '<div class="king-sash"></div>' +
-                '<div class="king-medal"></div>' +
-                '<div class="king-belt"></div>' +
-            '</div>';
+            if (genderClass === 'boy') {
+                return '<div class="animal-body king ' + genderClass + '">' +
+                    '<div class="king-cape"></div>' +
+                    '<div class="king-ermine-collar"></div>' +
+                    '<div class="king-chest-piece"></div>' +
+                    '<div class="king-sash"></div>' +
+                    '<div class="king-medal"></div>' +
+                    '<div class="king-belt"></div>' +
+                '</div>';
+            } else {
+                return '<div class="animal-body queen ' + genderClass + '">' +
+                    '<div class="queen-cape"></div>' +
+                    '<div class="queen-collar"></div>' +
+                    '<div class="queen-bodice"></div>' +
+                    '<div class="queen-gems"></div>' +
+                    '<div class="queen-sash"></div>' +
+                '</div>';
+            }
         default:
-            return '<div class="animal-body casual" style="background:linear-gradient(135deg,' + outfitColor + ' 0%,' + lighterColor + ' 100%)"></div>';
+            return '<div class="animal-body casual ' + genderClass + '" style="background:linear-gradient(135deg,' + outfitColor + ' 0%,' + lighterColor + ' 100%)"></div>';
     }
 }
 
