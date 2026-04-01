@@ -46,10 +46,10 @@
                     <div class="customization-section">
                         <label>Gender</label>
                         <div class="option-buttons" id="genderOptions">
-                            <button class="option-btn selected" data-value="girl">
+                            <button class="option-btn selected" data-value="female">
                                 <i class="fas fa-venus"></i> Girl
                             </button>
-                            <button class="option-btn" data-value="boy">
+                            <button class="option-btn" data-value="male">
                                 <i class="fas fa-mars"></i> Boy
                             </button>
                         </div>
@@ -144,30 +144,33 @@
                     <div class="customization-section">
                         <label>Outfit Style</label>
                         <div class="option-grid outfits-grid" id="outfitStyleOptions">
-                            <div class="option-card selected" data-value="casual"><div class="outfit-icon casual"></div><span>Casual</span></div>
-                            <div class="option-card" data-value="formal"><div class="outfit-icon formal"></div><span>Formal</span></div>
-                            <div class="option-card" data-value="sporty"><div class="outfit-icon sporty"></div><span>Sporty</span></div>
-                            <div class="option-card" data-value="cozy"><div class="outfit-icon cozy"></div><span>Cozy</span></div>
-                            <div class="option-card" data-value="hoodie"><div class="outfit-icon hoodie"></div><span>Hoodie</span></div>
-                            <div class="option-card" data-value="sweater"><div class="outfit-icon sweater"></div><span>Sweater</span></div>
-                            <div class="option-card" data-value="dress"><div class="outfit-icon dress"></div><span>Dress</span></div>
-                            <div class="option-card" data-value="suit"><div class="outfit-icon suit"></div><span>Suit</span></div>
-                            <div class="option-card" data-value="summer"><div class="outfit-icon summer"></div><span>Summer</span></div>
-                            <div class="option-card" data-value="winter"><div class="outfit-icon winter"></div><span>Winter</span></div>
-                            <div class="option-card" data-value="sailor"><div class="outfit-icon sailor"></div><span>Sailor</span></div>
-                            <div class="option-card" data-value="overalls"><div class="outfit-icon overalls"></div><span>Overalls</span></div>
-                            <div class="option-card" data-value="chef"><div class="outfit-icon chef"></div><span>Chef</span></div>
-                            <div class="option-card" data-value="knight"><div class="outfit-icon knight"></div><span>Knight</span></div>
-                            <div class="option-card" data-value="princess"><div class="outfit-icon princess"></div><span>Princess</span></div>
-                            <div class="option-card" data-value="king"><div class="outfit-icon king"></div><span>King</span></div>
-                            <div class="option-card" data-value="pirate"><div class="outfit-icon pirate"></div><span>Pirate</span></div>
-                            <div class="option-card" data-value="wizard"><div class="outfit-icon wizard"></div><span>Wizard</span></div>
-                            <div class="option-card" data-value="fairy"><div class="outfit-icon fairy"></div><span>Fairy</span></div>
-                            <div class="option-card" data-value="santa"><div class="outfit-icon santa"></div><span>Santa</span></div>
-                            <div class="option-card" data-value="vampire"><div class="outfit-icon vampire"></div><span>Vampire</span></div>
-                            <div class="option-card" data-value="maid"><div class="outfit-icon maid"></div><span>Maid</span></div>
-                            <div class="option-card" data-value="butler"><div class="outfit-icon butler"></div><span>Butler</span></div>
-                            <div class="option-card" data-value="astronaut"><div class="outfit-icon astronaut"></div><span>Astronaut</span></div>
+                            <div class="option-card selected" data-value="casual" data-gender="both"><div class="outfit-icon casual"></div><span>Casual</span></div>
+                            <div class="option-card" data-value="formal" data-gender="both"><div class="outfit-icon formal"></div><span>Formal</span></div>
+                            <div class="option-card" data-value="sporty" data-gender="both"><div class="outfit-icon sporty"></div><span>Sporty</span></div>
+                            <div class="option-card" data-value="cozy" data-gender="both"><div class="outfit-icon cozy"></div><span>Cozy</span></div>
+                            <div class="option-card" data-value="hoodie" data-gender="both"><div class="outfit-icon hoodie"></div><span>Hoodie</span></div>
+                            <div class="option-card" data-value="sweater" data-gender="both"><div class="outfit-icon sweater"></div><span>Sweater</span></div>
+                            <div class="option-card" data-value="dress" data-gender="female"><div class="outfit-icon dress"></div><span>Dress</span></div>
+                            <div class="option-card" data-value="suit" data-gender="both"><div class="outfit-icon suit"></div><span>Suit</span></div>
+                            <div class="option-card" data-value="summer" data-gender="both"><div class="outfit-icon summer"></div><span>Summer</span></div>
+                            <div class="option-card" data-value="winter" data-gender="both"><div class="outfit-icon winter"></div><span>Winter</span></div>
+                            <div class="option-card" data-value="sailor" data-gender="both"><div class="outfit-icon sailor"></div><span>Sailor</span></div>
+                            <div class="option-card" data-value="overalls" data-gender="both"><div class="outfit-icon overalls"></div><span>Overalls</span></div>
+                            <div class="option-card" data-value="chef" data-gender="both"><div class="outfit-icon chef"></div><span>Chef</span></div>
+                            <div class="option-card" data-value="knight" data-gender="both"><div class="outfit-icon knight"></div><span>Knight</span></div>
+                            <div class="option-card" data-value="princess" data-gender="female"><div class="outfit-icon princess"></div><span>Princess</span></div>
+                            <div class="option-card" data-value="prince" data-gender="male"><div class="outfit-icon king"></div><span>Prince</span></div>
+                            <div class="option-card" data-value="king" data-gender="male"><div class="outfit-icon king"></div><span>King</span></div>
+                            <div class="option-card" data-value="queen" data-gender="female"><div class="outfit-icon princess"></div><span>Queen</span></div>
+                            <div class="option-card" data-value="pirate" data-gender="both"><div class="outfit-icon pirate"></div><span>Pirate</span></div>
+                            <div class="option-card" data-value="wizard" data-gender="both"><div class="outfit-icon wizard"></div><span>Wizard</span></div>
+                            <div class="option-card" data-value="fairy" data-gender="female"><div class="outfit-icon fairy"></div><span>Fairy</span></div>
+                            <div class="option-card" data-value="elf" data-gender="male"><div class="outfit-icon summer"></div><span>Elf</span></div>
+                            <div class="option-card" data-value="santa" data-gender="both"><div class="outfit-icon santa"></div><span>Santa</span></div>
+                            <div class="option-card" data-value="vampire" data-gender="both"><div class="outfit-icon vampire"></div><span>Vampire</span></div>
+                            <div class="option-card" data-value="maid" data-gender="female"><div class="outfit-icon maid"></div><span>Maid</span></div>
+                            <div class="option-card" data-value="butler" data-gender="both"><div class="outfit-icon butler"></div><span>Butler</span></div>
+                            <div class="option-card" data-value="astronaut" data-gender="both"><div class="outfit-icon astronaut"></div><span>Astronaut</span></div>
                         </div>
                     </div>
 
@@ -217,20 +220,20 @@
                         <label>Head Accessory</label>
                         <div class="option-grid outfits-grid" id="headAccessoryOptions">
                             <div class="option-card selected" data-value="none"><i class="fas fa-ban"></i><span>None</span></div>
-                            <div class="option-card" data-value="bow" data-gender="girl"><div class="accessory-icon bow"></div><span>Bow</span></div>
-                            <div class="option-card" data-value="flower" data-gender="girl"><div class="accessory-icon flower"></div><span>Flower</span></div>
+                            <div class="option-card" data-value="bow" data-gender="female"><div class="accessory-icon bow"></div><span>Bow</span></div>
+                            <div class="option-card" data-value="flower" data-gender="female"><div class="accessory-icon flower"></div><span>Flower</span></div>
                             <div class="option-card" data-value="crown" data-gender="both"><div class="accessory-icon crown"></div><span>Crown</span></div>
-                            <div class="option-card" data-value="tiara" data-gender="girl"><div class="accessory-icon crown"></div><span>Tiara</span></div>
+                            <div class="option-card" data-value="tiara" data-gender="female"><div class="accessory-icon crown"></div><span>Tiara</span></div>
                             <div class="option-card" data-value="hat" data-gender="both"><div class="accessory-icon hat"></div><span>Hat</span></div>
-                            <div class="option-card" data-value="cap" data-gender="boy"><div class="accessory-icon cap"></div><span>Cap</span></div>
+                            <div class="option-card" data-value="cap" data-gender="male"><div class="accessory-icon cap"></div><span>Cap</span></div>
                             <div class="option-card" data-value="beanie" data-gender="both"><div class="accessory-icon hat"></div><span>Beanie</span></div>
-                            <div class="option-card" data-value="headband" data-gender="girl"><div class="accessory-icon headband"></div><span>Headband</span></div>
+                            <div class="option-card" data-value="headband" data-gender="female"><div class="accessory-icon headband"></div><span>Headband</span></div>
                             <div class="option-card" data-value="bunny-ears" data-gender="both"><div class="accessory-icon flower"></div><span>Bunny</span></div>
                             <div class="option-card" data-value="cat-ears" data-gender="both"><div class="accessory-icon bow"></div><span>Cat Ears</span></div>
                             <div class="option-card" data-value="horns" data-gender="both"><div class="accessory-icon crown"></div><span>Horns</span></div>
                             <div class="option-card" data-value="halo" data-gender="both"><div class="accessory-icon flower"></div><span>Halo</span></div>
                             <div class="option-card" data-value="helmet" data-gender="both"><div class="accessory-icon hat"></div><span>Helmet</span></div>
-                            <div class="option-card" data-value="witch-hat" data-gender="girl"><div class="accessory-icon hat"></div><span>Witch Hat</span></div>
+                            <div class="option-card" data-value="witch-hat" data-gender="female"><div class="accessory-icon hat"></div><span>Witch Hat</span></div>
                             <div class="option-card" data-value="wizard-hat" data-gender="both"><div class="accessory-icon hat"></div><span>Wizard Hat</span></div>
                             <div class="option-card" data-value="santa-hat" data-gender="both"><div class="accessory-icon hat"></div><span>Santa Hat</span></div>
                             <div class="option-card" data-value="party-hat" data-gender="both"><div class="accessory-icon cap"></div><span>Party Hat</span></div>
@@ -443,8 +446,8 @@
                         <div class="customize-row">
                             <label>Gender</label>
                             <div class="option-buttons small" id="settingsGenderOptions">
-                                <button class="option-btn" data-value="girl">Girl</button>
-                                <button class="option-btn" data-value="boy">Boy</button>
+                                <button class="option-btn" data-value="female">Girl</button>
+                                <button class="option-btn" data-value="male">Boy</button>
                             </div>
                         </div>
 
@@ -482,30 +485,33 @@
                         <div class="customize-row">
                             <label>Outfit</label>
                             <div class="option-scroll" id="settingsOutfitOptions">
-                                <div class="scroll-option" data-value="casual">Casual</div>
-                                <div class="scroll-option" data-value="formal">Formal</div>
-                                <div class="scroll-option" data-value="sporty">Sporty</div>
-                                <div class="scroll-option" data-value="cozy">Cozy</div>
-                                <div class="scroll-option" data-value="hoodie">Hoodie</div>
-                                <div class="scroll-option" data-value="sweater">Sweater</div>
-                                <div class="scroll-option" data-value="dress">Dress</div>
-                                <div class="scroll-option" data-value="suit">Suit</div>
-                                <div class="scroll-option" data-value="summer">Summer</div>
-                                <div class="scroll-option" data-value="winter">Winter</div>
-                                <div class="scroll-option" data-value="sailor">Sailor</div>
-                                <div class="scroll-option" data-value="overalls">Overalls</div>
-                                <div class="scroll-option" data-value="chef">Chef</div>
-                                <div class="scroll-option" data-value="knight">Knight</div>
-                                <div class="scroll-option" data-value="princess">Princess</div>
-                                <div class="scroll-option" data-value="king">King</div>
-                                <div class="scroll-option" data-value="pirate">Pirate</div>
-                                <div class="scroll-option" data-value="wizard">Wizard</div>
-                                <div class="scroll-option" data-value="fairy">Fairy</div>
-                                <div class="scroll-option" data-value="santa">Santa</div>
-                                <div class="scroll-option" data-value="vampire">Vampire</div>
-                                <div class="scroll-option" data-value="maid">Maid</div>
-                                <div class="scroll-option" data-value="butler">Butler</div>
-                                <div class="scroll-option" data-value="astronaut">Astronaut</div>
+                                <div class="scroll-option" data-value="casual" data-gender="both">Casual</div>
+                                <div class="scroll-option" data-value="formal" data-gender="both">Formal</div>
+                                <div class="scroll-option" data-value="sporty" data-gender="both">Sporty</div>
+                                <div class="scroll-option" data-value="cozy" data-gender="both">Cozy</div>
+                                <div class="scroll-option" data-value="hoodie" data-gender="both">Hoodie</div>
+                                <div class="scroll-option" data-value="sweater" data-gender="both">Sweater</div>
+                                <div class="scroll-option" data-value="dress" data-gender="female">Dress</div>
+                                <div class="scroll-option" data-value="suit" data-gender="both">Suit</div>
+                                <div class="scroll-option" data-value="summer" data-gender="both">Summer</div>
+                                <div class="scroll-option" data-value="winter" data-gender="both">Winter</div>
+                                <div class="scroll-option" data-value="sailor" data-gender="both">Sailor</div>
+                                <div class="scroll-option" data-value="overalls" data-gender="both">Overalls</div>
+                                <div class="scroll-option" data-value="chef" data-gender="both">Chef</div>
+                                <div class="scroll-option" data-value="knight" data-gender="both">Knight</div>
+                                <div class="scroll-option" data-value="princess" data-gender="female">Princess</div>
+                                <div class="scroll-option" data-value="prince" data-gender="male">Prince</div>
+                                <div class="scroll-option" data-value="king" data-gender="male">King</div>
+                                <div class="scroll-option" data-value="queen" data-gender="female">Queen</div>
+                                <div class="scroll-option" data-value="pirate" data-gender="both">Pirate</div>
+                                <div class="scroll-option" data-value="wizard" data-gender="both">Wizard</div>
+                                <div class="scroll-option" data-value="fairy" data-gender="female">Fairy</div>
+                                <div class="scroll-option" data-value="elf" data-gender="male">Elf</div>
+                                <div class="scroll-option" data-value="santa" data-gender="both">Santa</div>
+                                <div class="scroll-option" data-value="vampire" data-gender="both">Vampire</div>
+                                <div class="scroll-option" data-value="maid" data-gender="female">Maid</div>
+                                <div class="scroll-option" data-value="butler" data-gender="both">Butler</div>
+                                <div class="scroll-option" data-value="astronaut" data-gender="both">Astronaut</div>
                             </div>
                         </div>
 
@@ -541,20 +547,20 @@
                             <label>Accessory</label>
                             <div class="option-scroll" id="settingsAccessoryOptions">
                                 <div class="scroll-option" data-value="none">None</div>
-                                <div class="scroll-option" data-value="bow" data-gender="girl">Bow</div>
-                                <div class="scroll-option" data-value="flower" data-gender="girl">Flower</div>
+                                <div class="scroll-option" data-value="bow" data-gender="female">Bow</div>
+                                <div class="scroll-option" data-value="flower" data-gender="female">Flower</div>
                                 <div class="scroll-option" data-value="crown" data-gender="both">Crown</div>
-                                <div class="scroll-option" data-value="tiara" data-gender="girl">Tiara</div>
+                                <div class="scroll-option" data-value="tiara" data-gender="female">Tiara</div>
                                 <div class="scroll-option" data-value="hat" data-gender="both">Hat</div>
-                                <div class="scroll-option" data-value="cap" data-gender="boy">Cap</div>
+                                <div class="scroll-option" data-value="cap" data-gender="male">Cap</div>
                                 <div class="scroll-option" data-value="beanie" data-gender="both">Beanie</div>
-                                <div class="scroll-option" data-value="headband" data-gender="girl">Headband</div>
+                                <div class="scroll-option" data-value="headband" data-gender="female">Headband</div>
                                 <div class="scroll-option" data-value="bunny-ears" data-gender="both">Bunny</div>
                                 <div class="scroll-option" data-value="cat-ears" data-gender="both">Cat Ears</div>
                                 <div class="scroll-option" data-value="horns" data-gender="both">Horns</div>
                                 <div class="scroll-option" data-value="halo" data-gender="both">Halo</div>
                                 <div class="scroll-option" data-value="helmet" data-gender="both">Helmet</div>
-                                <div class="scroll-option" data-value="witch-hat" data-gender="girl">Witch Hat</div>
+                                <div class="scroll-option" data-value="witch-hat" data-gender="female">Witch Hat</div>
                                 <div class="scroll-option" data-value="wizard-hat" data-gender="both">Wizard Hat</div>
                                 <div class="scroll-option" data-value="santa-hat" data-gender="both">Santa Hat</div>
                                 <div class="scroll-option" data-value="party-hat" data-gender="both">Party Hat</div>
